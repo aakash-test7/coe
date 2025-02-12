@@ -1,4 +1,4 @@
-from pages.About import about_page
+from pages.About_Us import about_page
 from pages.Tutorials import tutorials_page
 from pages.Glossary import glossary_page
 from pages.Home_Page import home_page
