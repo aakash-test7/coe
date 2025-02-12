@@ -16,6 +16,8 @@ styles = {
         "align-items": "center",  # Vertically center the items
         "justify-content": "space-around",  # Spread out the headings evenly
         "padding": "0 1rem",  # Add padding to the left and right of the navigation bar
+        "overflow-x": "auto",  # Enable horizontal scrolling if the content overflows
+        "white-space": "nowrap",  # Prevent items from wrapping to a new line
     },
     "div": {
         "max-width": "72rem",  # Limit the maximum width of the navigation bar content
@@ -36,6 +38,24 @@ styles = {
         "background-color": "rgba(255, 255, 255, 0.35)",  # Background color on hover
     },
 }
+# Inject custom CSS for mobile responsiveness
+st.markdown("""
+    <style>
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .stNavBar-nav {
+                overflow-x: scroll;  /* Enable scrolling on smaller screens */
+                flex-wrap: nowrap;    /* Prevent wrapping of items */
+                padding: 0.5rem;      /* Adjust padding for mobile */
+            }
+            .stNavBar-span {
+                font-size: 0.9rem;      /* Slightly reduce font size for mobile */
+                padding: 0.375rem 0.5rem; /* Adjust padding for mobile screens */
+            }
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Home"
 
