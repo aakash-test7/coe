@@ -2,7 +2,7 @@ import streamlit as st
 from pages.footer_all import base_footer 
 
 def about_page():
-    st.title("About")
+    st.title("About Us")
     st.write("**Learn more about the application and its developers.**")
 
     import urllib.parse
