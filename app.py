@@ -4,7 +4,7 @@ st.set_page_config(page_title="ChickpeaOmicsExplorer", layout="wide")
 from streamlit_navigation_bar import st_navbar
 import pages as pg
 
-pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About", "MDU"]
+pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU"]
 logo_path = ("logo.svg")
 urls = {"MDU": "https://mdu.ac.in/default.aspx"}
 
@@ -46,7 +46,7 @@ if page != st.session_state.current_page:
 
 # Sidebar navigation
 #st.sidebar.title("Navigation")
-pages2 = ["Home", "Search", "Meta Data", "Glossary", "Tutorials","Citations", "About"]
+pages2 = ["Home", "Search", "Meta Data", "Glossary", "Tutorials","Citations", "About Us"]
 
 for page_name in pages2:
     if st.sidebar.button(page_name, use_container_width=True):
@@ -103,7 +103,7 @@ functions = {
     "Glossary": pg.glossary_page,
     "Tutorials": pg.tutorials_page,
     "Citations":pg.citations_page,
-    "About": pg.about_page,
+    "About Us": pg.about_page,
 }
 
 go_to = functions.get(st.session_state.current_page)
