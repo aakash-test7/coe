@@ -45,7 +45,7 @@ def base_footer():
         position: bottom;
         bottom: 0;
         left: 0;
-        padding: 20px 0;  /* No horizontal padding */
+        padding: 0 0;  /* No horizontal padding */
         z-index: 9999; /* Ensures the footer is above other content */
     }}
 
@@ -75,7 +75,7 @@ def base_footer():
 
     .col-1 {{
         flex-basis: 50%;
-        padding: 10px;
+        padding: 5px;
         margin-bottom: 20px;
     }}
 
@@ -92,7 +92,7 @@ def base_footer():
 
     .col-3 {{
         flex-basis: 15%;
-        padding: 10px;
+        padding: 5px;
         margin-bottom: 2px;
     }}
 
@@ -133,7 +133,7 @@ def base_footer():
             <a href="mailto:kduiet@mdurohtak.ac.in " style="text-decoration: none;">kduiet@mdurohtak.ac.in</a></p>
             </div>
             <div class="col-3">
-                <h3><a href="https://mdu.ac.in/default.aspx" style="text-decoration: none;" target="_blank">MDU</a></h3>
+                <h3><a href="https://mdu.ac.in/default.aspx" style="text-decoration: none;" target="_blank">⠀⠀MDU</a></h3>
                 <img src="{footer_image}" alt="mdu">
             </div>
         </div>
