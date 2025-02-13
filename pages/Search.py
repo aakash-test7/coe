@@ -197,7 +197,6 @@ def register_interface():
                     st.warning("Passwords do not match. Please try again.")
                 
 def authentication_flow():
-    def authentication_flow():
     if st.session_state['login_done']:
         search_page()
         return
