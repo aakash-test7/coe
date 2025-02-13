@@ -57,7 +57,7 @@ def search_page():
 
 #if __name__ == "__main__":
 #    search_page()
-from security_login import *
+from pages.security_login import *
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 if 'current_interface' not in st.session_state:
