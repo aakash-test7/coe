@@ -1,6 +1,7 @@
 import streamlit as st
 from backend import user_input_menu, multi_user_input_menu, process_locid, process_mlocid
 from pages.footer_all import base_footer 
+from security_login import *
 
 def search_page():
     st.title("Search")
@@ -55,10 +56,11 @@ def search_page():
         st.write("Follow the instructions or check out tutorials")
     base_footer()
 
-from security_login import *
-
-# Global variable to track login status
-login_status = {"authenticated": False}
+# Initialize session state keys
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+if "current_interface" not in st.session_state:
+    st.session_state.current_interface = "Login"
 
 def clear_register_inputs():
     st.session_state.register_username1 = ""
@@ -95,34 +97,9 @@ def login_interface():
             if st.button("Continue", use_container_width=True):
                 st.success("Checking credentials")
                 if check_user(username, password):
-                    login_status["authenticated"] = True
+                    st.session_state.authenticated = True
                     st.success("Logged in successfully!")
-                    st.title(f"Welcome user")
-                    conn = connect_to_db()
-                    cursor = conn.cursor()
-                    # Main part to confirm
-                    query5 = "SELECT FirstName FROM Identity WHERE Username = %s"
-                    cursor.execute(query5, (username,))
-                    user_info = cursor.fetchone()
-                    if user_info:
-                        st.title(f"Hello {user_info[0]}!")
-                    else:
-                        st.title("User information not found.")
-                    query6 = "SELECT LastName FROM Identity WHERE Username = %s"
-                    cursor.execute(query6, (username,))
-                    user_info = cursor.fetchone()
-                    if user_info:
-                        st.title(f"Hello {user_info[0]}!")
-                    else:
-                        st.title("User information not found.")
-                    query7 = "SELECT Email FROM Identity WHERE Username = %s"
-                    cursor.execute(query7, (username,))
-                    user_info = cursor.fetchone()
-                    if user_info:
-                        st.title(f"Hello {user_info[0]}!")
-                    else:
-                        st.title("User information not found.")
-                    st.rerun()
+                    st.rerun()  # Rerun the app to reflect the login state
                 else:
                     st.error("Invalid username or password")
 
@@ -180,31 +157,32 @@ def register_interface():
                     st.warning("Passwords do not match. Please try again.")
                 
 def authentication_flow():
-    if login_status["authenticated"]:
+    if st.session_state.authenticated:
         search_page()
         return
 
     st.title("Security")
 
-    choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.get("current_interface") == "Login" else 1)
+    choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.current_interface == "Login" else 1)
 
-    if st.session_state.get("current_interface") != choice:
+    if st.session_state.current_interface != choice:
         st.warning("Are you sure you want to switch? Unsaved changes will be lost.")
         col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
         with col3:
             if st.button("Yes"):
-                st.session_state["current_interface"] = choice
+                st.session_state.current_interface = choice
                 st.rerun()
         with col5:
             if st.button("No"):
                 st.rerun()
 
-    st.session_state["current_interface"] = choice
+    st.session_state.current_interface = choice
 
-    if st.session_state["current_interface"] == "Login":
+    if st.session_state.current_interface == "Login":
         login_interface()
-    elif st.session_state["current_interface"] == "Register":
+    elif st.session_state.current_interface == "Register":
         register_interface()
 
 if __name__ == "__main__":
     authentication_flow()
+
