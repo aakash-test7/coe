@@ -55,17 +55,10 @@ def search_page():
         st.write("Follow the instructions or check out tutorials")
     base_footer()
 
-from pages.security_login import check_user, connect_to_db, validate_username, validate_email, validate_password, add_user
+from security_login import *
 
-# Ensure session state is properly initialized
-if 'login_done' not in st.session_state:
-    st.session_state['login_done'] = False
-
-if 'authenticated' not in st.session_state:
-    st.session_state['authenticated'] = False
-
-if 'current_interface' not in st.session_state:
-    st.session_state['current_interface'] = "Login"  # Default to Login
+# Global variable to track login status
+login_status = {"authenticated": False}
 
 def clear_register_inputs():
     st.session_state.register_username1 = ""
@@ -80,40 +73,34 @@ def clear_login_inputs():
     st.session_state.login_password = ""
 
 def login_interface():
-    # Ensure session state is properly initialized
-    if 'login_done' not in st.session_state:
-        st.session_state['login_done'] = False
-
     with st.container(border=True):
         col1, col2, col3, col4, col5 = st.columns(5)
         with col3:
             st.title("Login")
-
+        
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("Enter Username")
         with col3:
             username = st.text_input("Username", key="login_username", label_visibility="collapsed")
-
+        
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("Enter Password")
         with col3:
             password = st.text_input("Password", key="login_password", type="password", label_visibility="collapsed")
-
-        col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 2, 1, 1, 1])
-
+        
+        col1, col2, col3, col4, col5, col6, col7 = st.columns([1,1,1,2,1,1,1])
         with col4:
             if st.button("Continue", use_container_width=True):
                 st.success("Checking credentials")
                 if check_user(username, password):
-                    st.session_state['authenticated'] = True
+                    login_status["authenticated"] = True
                     st.success("Logged in successfully!")
-                    st.session_state['login_done'] = True                    
                     st.title(f"Welcome user")
                     conn = connect_to_db()
                     cursor = conn.cursor()
-
+                    # Main part to confirm
                     query5 = "SELECT FirstName FROM Identity WHERE Username = %s"
                     cursor.execute(query5, (username,))
                     user_info = cursor.fetchone()
@@ -121,7 +108,6 @@ def login_interface():
                         st.title(f"Hello {user_info[0]}!")
                     else:
                         st.title("User information not found.")
-
                     query6 = "SELECT LastName FROM Identity WHERE Username = %s"
                     cursor.execute(query6, (username,))
                     user_info = cursor.fetchone()
@@ -129,7 +115,6 @@ def login_interface():
                         st.title(f"Hello {user_info[0]}!")
                     else:
                         st.title("User information not found.")
-
                     query7 = "SELECT Email FROM Identity WHERE Username = %s"
                     cursor.execute(query7, (username,))
                     user_info = cursor.fetchone()
@@ -137,19 +122,16 @@ def login_interface():
                         st.title(f"Hello {user_info[0]}!")
                     else:
                         st.title("User information not found.")
-
-                    st.experimental_rerun()
-
+                    st.rerun()
                 else:
                     st.error("Invalid username or password")
-    return st.session_state['login_done']
 
 def register_interface():
     with st.container(border=True):
         col1, col2, col3, col4, col5 = st.columns(5)
         with col3:
             st.title("Register")
-
+        
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("First Name")
@@ -157,33 +139,28 @@ def register_interface():
         with col3:
             st.subheader("Last Name")
             lname = st.text_input("LastName", key="register_lname", label_visibility="collapsed")
-
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("Create username")
         with col3:
             username1 = st.text_input("Username", key="register_username1", label_visibility="collapsed")
-
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("Enter Email")
         with col3:
             email1 = st.text_input("Email", key="register_email1", label_visibility="collapsed")
-
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("Create Password")
         with col3:
             password1 = st.text_input("Password1", type="password", key="register_password1", label_visibility="collapsed")
-
         col1, col2, col3, col4 = st.columns(4)
         with col2:
             st.subheader("Confirm Password")
         with col3:
             password2 = st.text_input("Password2", type="password", key="register_password2", label_visibility="collapsed")
-
-        col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 2, 1, 1, 1])
-
+        
+        col1, col2, col3, col4, col5, col6, col7 = st.columns([1,1,1,2,1,1,1])
         with col4:
             if st.button("Register", use_container_width=True):
                 if password1 == password2:
@@ -201,41 +178,33 @@ def register_interface():
                             st.error("Username or email already exists.")
                 else:
                     st.warning("Passwords do not match. Please try again.")
-
+                
 def authentication_flow():
-    # Ensure session state is properly initialized
-    if 'login_done' not in st.session_state:
-        st.session_state['login_done'] = False
-
-    
+    if login_status["authenticated"]:
+        search_page()
+        return
 
     st.title("Security")
 
-    choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.current_interface == "Login" else 1)
+    choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.get("current_interface") == "Login" else 1)
 
-    if st.session_state.current_interface != choice:
+    if st.session_state.get("current_interface") != choice:
         st.warning("Are you sure you want to switch? Unsaved changes will be lost.")
         col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
         with col3:
             if st.button("Yes"):
-                st.session_state.current_interface = choice
-                st.experimental_rerun()  # Use experimental_rerun for smoother reruns
+                st.session_state["current_interface"] = choice
+                st.rerun()
         with col5:
             if st.button("No"):
-                st.experimental_rerun()
+                st.rerun()
 
-    st.session_state.current_interface = choice
+    st.session_state["current_interface"] = choice
 
-    if st.session_state.current_interface == "Login":
+    if st.session_state["current_interface"] == "Login":
         login_interface()
-
-    elif st.session_state.current_interface == "Register":
+    elif st.session_state["current_interface"] == "Register":
         register_interface()
-    if st.session_state['login_done']:
-        search_page()  # Assuming this function is defined elsewhere
-        return
 
-# Main function call
 if __name__ == "__main__":
     authentication_flow()
-
