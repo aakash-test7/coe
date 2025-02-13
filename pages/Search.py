@@ -2,6 +2,17 @@ import streamlit as st
 from backend import user_input_menu, multi_user_input_menu, process_locid, process_mlocid
 from pages.footer_all import base_footer 
 
+def show_login_popup():
+    st.markdown(
+        """
+        <div style="background-color: lightgray; padding: 20px; border-radius: 10px;">
+            <h3>Login Required</h3>
+            <p>Please <a href='https://chickpea7.streamlit.app/~/+/component/streamlit_navigation_bar.st_navbar/index.html?streamlitUrl=https%3A%2F%2Fchickpea7.streamlit.app%2F~%2F%2B%2F#' target='_blank'>Login</a> to access more features.</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+    
 def search_page():
     st.title("Search")
     st.write("**Begin the search by interacting with the backend process.**")
@@ -10,7 +21,12 @@ def search_page():
     with col1:
         con1=st.container(border=True)
         tid = con1.text_input("Enter the Gene ID: ", placeholder="e.g., Ca_00001", key="Tid_input1").strip()
+        if tid:
+            show_login_popup()
         mtid = con1.text_input("Enter multiple Gene IDs: ", placeholder="e.g., Ca_00001, Ca_00002", key="mTid_input2").strip()
+        if mtid:
+            show_login_popup()
+
         if mtid:
             mtid_list = [item.strip() for item in mtid.replace(",", " ").split()]
             mtid_list = list(set(mtid_list))
@@ -19,7 +35,11 @@ def search_page():
     with col2:
         con2=st.container(border=True)
         locid = con2.text_input("Enter the NCBI ID: ", placeholder="e.g., LOC101511858", key="Locid_input1").strip()
+        if locid:
+            show_login_popup()
         mlocid = con2.text_input("Enter multiple NCBI IDs: ", placeholder="e.g., LOC101511858, LOC101496413", key="mLocid_input2").strip()
+        if mlocid:
+            show_login_popup()
         if mlocid:
             mlocid_list = [item.strip() for item in mlocid.replace(",", " ").split()]
             mlocid_list = list(set(mlocid_list))
