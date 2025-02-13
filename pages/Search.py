@@ -2,14 +2,19 @@ import streamlit as st
 from backend import user_input_menu, multi_user_input_menu, process_locid, process_mlocid
 from pages.footer_all import base_footer
 
+# Search page function
 def search_page():
     st.title("Search")
     st.write("**Begin the search by interacting with the backend process.**")
     
-    # Navigation to Login Page
-    if st.button("Go to Login Page"):
-        st.session_state.page = "login"
+    # Check if the user is logged in (assuming 'logged_in' is set in session state on login)
+    if "logged_in" not in st.session_state or not st.session_state.logged_in:
+        st.warning("Please log in first.")
+        if st.button("Go to Login Page"):
+            st.session_state.page = "login"
+        return  # Exit the search page if the user is not logged in
     
+    # Navigation to Login Page
     col1, col2 = st.columns(2)
 
     with col1:
@@ -62,13 +67,13 @@ def search_page():
         st.write("Follow the instructions or check out tutorials")
     
     base_footer()
-    return
 
 # Main function to handle page navigation
 def main():
     if "page" not in st.session_state:
         st.session_state.page = "search"  # Default to Search page
     
+    # Page Navigation
     if st.session_state.page == "search":
         search_page()
     elif st.session_state.page == "login":
