@@ -59,8 +59,12 @@ def search_page():
 #    search_page()
 import streamlit as st
 from pages.security_login import *
+if 'login_done' not in st.session_state:
+    st.session_state['login_done'] = False
+
 if 'authenticated' not in st.session_state:
-    st.session_state.authenticated = False
+    st.session_state['authenticated'] = False
+
 if 'current_interface' not in st.session_state:
     st.session_state.current_interface = None
 
@@ -197,10 +201,6 @@ def register_interface():
                     st.warning("Passwords do not match. Please try again.")
                 
 def authentication_flow():
-    if st.session_state['login_done']:
-        search_page()
-        return
-        
     st.title("Security")
 
     choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.current_interface == "Login" else 1)
@@ -223,5 +223,8 @@ def authentication_flow():
         
     elif st.session_state.current_interface == "Register":
         register_interface()
+    if st.session_state['login_done']:
+        search_page()
+        return
 if __name__ == "__main__":
     authentication_flow()
