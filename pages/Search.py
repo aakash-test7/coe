@@ -1,7 +1,7 @@
 import streamlit as st
 from backend import user_input_menu, multi_user_input_menu, process_locid, process_mlocid
 from pages.footer_all import base_footer 
-from security_login import *
+from pages.security_login import *
 
 def search_page():
     st.title("Search")
