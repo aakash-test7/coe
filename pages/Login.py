@@ -73,7 +73,7 @@ def login_interface():
                     else:
                         st.title("User information not found.")
                     st.session_state.authenticated = True
-                    st.rerun()
+
                 else:
                     st.error("Invalid username or password")
 
