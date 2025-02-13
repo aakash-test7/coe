@@ -105,7 +105,7 @@ def login_interface():
                 if check_user(username, password):
                     st.session_state['authenticated'] = True
                     st.success("Logged in successfully!")
-                    login_done = True
+                    global login_done = True
                     st.title(f"Welcome user")
                     conn = connect_to_db()
                     cursor = conn.cursor()
