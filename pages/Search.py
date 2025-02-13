@@ -213,11 +213,12 @@ def authentication_flow():
 
     st.session_state.current_interface = choice
 
-    if st.session_state.current_interface == "Login":
-        login_interface()
-        if login_done==True:
+    if st.session_state.current_interface == "Login":               
+        login_done = login_interface()  # Assign the result to login_done
+        if login_done:
             search_page()
             return
+                
     elif st.session_state.current_interface == "Register":
         register_interface()
 if __name__ == "__main__":
