@@ -4,7 +4,7 @@ st.set_page_config(page_title="ChickpeaOmicsExplorer", layout="wide")
 from streamlit_navigation_bar import st_navbar
 import pages as pg
 
-pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU", "Login"]
+pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU"]
 logo_path = ("logo.svg")
 urls = {"MDU": "https://mdu.ac.in/default.aspx"}
 
@@ -38,6 +38,7 @@ styles = {
         "background-color": "rgba(255, 255, 255, 0.35)",  # Background color on hover
     },
 }
+
 # Inject custom CSS for mobile responsiveness
 st.markdown("""
     <style>
@@ -55,25 +56,23 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Home"
 
-page = st_navbar(pages,logo_path=logo_path,urls=urls,styles=styles,)
+page = st_navbar(pages, logo_path=logo_path, urls=urls, styles=styles)
 
 if page != st.session_state.current_page:
     st.session_state.current_page = page
 
 # Sidebar navigation
-#st.sidebar.title("Navigation")
-pages2 = ["Home", "Search", "Meta Data", "Glossary", "Tutorials","Citations", "About Us", "Login"]
+# st.sidebar.title("Navigation")
+pages2 = ["Home", "Search", "Meta Data", "Glossary", "Tutorials", "Citations", "About Us"]
 
 for page_name in pages2:
     if st.sidebar.button(page_name, use_container_width=True):
         st.session_state.current_page = page_name
 
-
-#BUTTONS NAVIGATION
+# BUTTONS NAVIGATION
 st.sidebar.markdown("---")  # Adds a separator
 st.markdown(
     """
@@ -122,9 +121,8 @@ functions = {
     "Meta-Data": pg.meta_data_page,
     "Glossary": pg.glossary_page,
     "Tutorials": pg.tutorials_page,
-    "Citations":pg.citations_page,
+    "Citations": pg.citations_page,
     "About Us": pg.about_page,
-    "Login":pg.login_page,
 }
 
 go_to = functions.get(st.session_state.current_page)
