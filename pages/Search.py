@@ -177,20 +177,21 @@ def register_interface():
         with col4:
             if st.button("Register", use_container_width=True):
                 if password1 == password2:
-                    st.success("RPasswords match")
+                    st.success("Password checked")
+                    if not validate_username(username1):
+                        st.error("Invalid username. Only a-z, A-Z, 0-9, and !@#$%^&*_+-/? are allowed.")
+                    elif not validate_email(email1):
+                        st.error("Invalid email. Must contain @ and .com.")
+                    elif not validate_password(password1):
+                        st.error("Password must be at least 8 characters long.")
+                    else:
+                        if add_user(username1, password1, fname, lname, email1):
+                            st.success("Registration successful! Please login.")
+                        else:
+                            st.error("Username or email already exists.")
                 else:
                     st.warning("Passwords do not match. Please try again.")
-                if not validate_username(username1):
-                    st.error("Invalid username. Only a-z, A-Z, 0-9, and !@#$%^&*_+-/? are allowed.")
-                elif not validate_email(email1):
-                    st.error("Invalid email. Must contain @ and .com.")
-                elif not validate_password(password1):
-                    st.error("Password must be at least 8 characters long.")
-                else:
-                    if add_user(username1, password1, fname, lname, email1):
-                        st.success("Registration successful! Please login.")
-                    else:
-                        st.error("Username or email already exists.")
+                
 def authentication_flow():
     if st.session_state.authenticated:
         search_page()
