@@ -135,7 +135,10 @@ def register_interface():
                     st.warning("Passwords do not match. Please try again.")
                 
 def login_page():
-
+    if 'current_interface' not in st.session_state:
+        st.session_state.current_interface = "Login"
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = False
     st.title("Security")
 
     choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.current_interface == "Login" else 1)
