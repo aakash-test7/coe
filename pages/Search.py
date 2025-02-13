@@ -62,6 +62,7 @@ def search_page():
         st.write("Follow the instructions or check out tutorials")
     
     base_footer()
+    return
 
 # Main function to handle page navigation
 def main():
