@@ -1,20 +1,11 @@
 import streamlit as st
 from backend import user_input_menu, multi_user_input_menu, process_locid, process_mlocid
 from pages.footer_all import base_footer
+import time
 
-# Search page function
 def search_page():
     st.title("Search")
     st.write("**Begin the search by interacting with the backend process.**")
-    
-    # Check if the user is logged in (assuming 'logged_in' is set in session state on login)
-    if "logged_in" not in st.session_state or not st.session_state.logged_in:
-        st.warning("Please log in first.")
-        if st.button("Go to Login Page"):
-            st.session_state.page = "login"
-        return  # Exit the search page if the user is not logged in
-    
-    # Navigation to Login Page
     col1, col2 = st.columns(2)
 
     with col1:
@@ -34,53 +25,45 @@ def search_page():
             mlocid_list = [item.strip() for item in mlocid.replace(",", " ").split()]
             mlocid_list = list(set(mlocid_list))
             mlocid = ",".join(mlocid_list)
-    
+
     con1, con2, con3 = st.columns([2, 2, 2])
     with con2:
         start_button = st.button("Search", use_container_width=True, key="Searchbutton1")
-    
+
     if start_button:
-        if tid:
-            result = user_input_menu(tid)
-            st.write(result)
-            st.toast("Task completed successfully.")
-        elif mtid:
-            result = multi_user_input_menu(mtid)
-            st.write(result)
-            st.toast("Task completed successfully.")
-        elif locid:
-            tid = process_locid(locid)
-            result = user_input_menu(tid)
-            st.write(result)
-            st.toast("Task completed successfully.")
-        elif mlocid:
-            mtid = process_mlocid(mlocid)
-            result = multi_user_input_menu(mtid)
-            st.write(result)
-            st.toast("Task completed successfully.")
+        if not st.session_state.get("logged_in", False):
+            if tid or mtid or locid or mlocid:
+                st.warning("You need to login to perform this action. Redirecting to login page in 5 seconds...")
+                time.sleep(5)
+                st.session_state["redirect_to_login"] = True
+                st.rerun()
         else:
-            st.warning("Need either a Gene ID or NCBI ID to proceed.")
+            if tid:
+                result = user_input_menu(tid)
+                st.write(result)
+                st.toast("Task completed successfully.")
+            elif mtid:
+                result = multi_user_input_menu(mtid)
+                st.write(result)
+                st.toast("Task completed successfully.")
+            elif locid:
+                tid = process_locid(locid)
+                result = user_input_menu(tid)
+                st.write(result)
+                st.toast("Task completed successfully.")
+            elif mlocid:
+                mtid = process_mlocid(mlocid)
+                result = multi_user_input_menu(mtid)
+                st.write(result)
+                st.toast("Task completed successfully.")
+            else:
+                st.warning("Need either a Gene ID or NCBI ID to proceed.")
     elif tid == "":
         st.warning("Need Gene ID/ NCBI ID to proceed.")
     else:
         st.write("Press the 'Start' button to begin the search.")
         st.write("Follow the instructions or check out tutorials")
-    
     base_footer()
 
-# Main function to handle page navigation
-def main():
-    if "page" not in st.session_state:
-        st.session_state.page = "search"  # Default to Search page
-    
-    # Page Navigation
-    if st.session_state.page == "search":
-        search_page()
-    elif st.session_state.page == "login":
-        # Import the login page here
-        # Assuming the login page code is in pages.Login.py
-        import pages.Login  # Make sure this import points to your login page
-        pages.Login.login_page()  # Assuming your login page function is `login_page`
-
 if __name__ == "__main__":
-    main()
+    search_page()
