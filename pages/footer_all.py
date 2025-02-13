@@ -13,119 +13,137 @@ def base_footer():
     footer_image = f"data:image/png;base64,{img_base64}"
     footer = f"""
     <style>
-    * {{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }}
-
-    html, body {{
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }}
-
-    body {{
-        font-family: 'Poppins', sans-serif;
-        background: #eef8ff;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }}
-
-    main {{
-        flex: 1;
-    }}
-
-    .footer-container {{
-        width: 100%;
-        background: #000000;
-        color: #fff;
-        position: bottom;
-        bottom: 0;
-        left: 0;
-        padding: 0 0;  /* No horizontal padding */
-        z-index: 9999; /* Ensures the footer is above other content */
-    }}
-
-    .container {{
-        width: 100%;
-        margin: 0;
-        padding: 0 20px;  /* Horizontal padding for alignment */
-        display: flex;
-        justify-content: space-evenly;
-        align-items: flex-start;
-        flex-wrap: wrap;
-    }}
-
-    .container h3::after {{
-        content: "";
-        display: block;
-        height: 2px;
-        width: 125px;
-        background: #fff;
-        margin-top: 20px;
-    }}
-
-    .container li a:hover {{
-        color: #01e72b;
-        transition: all 0.5s ease;
-    }}
-
-    .col-1 {{
-        flex-basis: 50%;
-        padding: 5px;
-        margin-bottom: 20px;
-    }}
-
-    .col-1 img {{
-        width: 55px;
-        margin-bottom: 15px;
-    }}
-
-    .col-1 p {{
-        color: #fff;
-        font-size: 16px;
-        line-height: 20px;
-    }}
-
-    .col-3 {{
-        flex-basis: 15%;
-        padding: 5px;
-        margin-bottom: 2px;
-    }}
-
-    .col-3 h3 {{
-        color: #fff;
-        font-size: 25px;
-        align-items: center;
-        margin-bottom: 20px;
-    }}
-
-    .col-3 img {{
-        width: 125px;
-    }}
-
-    .container a{{
-        color:#fff;
-    }}
-
-    .container a:hover {{
-        color: #b9d694;
-        transition: all 0.5s ease;
-    }}
-
-    .footer-2 {{
-        width: 100%;
-        background: #2d2d2d;
-        color: #fff;
-        padding-top: 12px;
-        padding-bottom: 2px;
-        text-align: center;
-    }}
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+    
+        html, body {{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }}
+    
+        body {{
+            font-family: 'Poppins', sans-serif;
+            background: #eef8ff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }}
+    
+        main {{
+            flex: 1;
+        }}
+    
+        .footer-container {{
+            width: 100%;
+            background: #000000;
+            color: #fff;
+            position: bottom;
+            bottom: 0;
+            left: 0;
+            padding: 0 0;  /* No horizontal padding */
+            z-index: 9999; /* Ensures the footer is above other content */
+            max-height:280px;
+        }}
+    
+        .container {{
+            width: 100%;
+            margin: 0;
+            padding: 0 20px;  /* Horizontal padding for alignment */
+            display: flex;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }}
+    
+        .container li a:hover {{
+            color: #01e72b;
+            transition: all 0.5s ease;
+        }}
+    
+        .col-1 {{
+            flex-basis: 50%;
+            padding: 5px;
+            margin-bottom: 20px;
+        }}
+    
+        .col-1 img {{
+            width: 55px;
+            margin-bottom: 15px;
+        }}
+    
+        .col-1 p {{
+            color: #fff;
+            font-size: 16px;
+            line-height: 20px;
+        }}
+    
+        .col-3 {{
+            flex-basis: 15%;
+            padding: 5px;
+            margin-bottom: 2px;
+        }}
+    
+        .col-3 h3 {{
+            color: #fff;
+            font-size: 25px;
+            align-items: center;
+            margin-top: 10px;
+        }}
+    
+        .col-3 img {{
+            width: 125px;
+            magin-bottom-10px;
+        }}
+    
+        .container a {{
+            color: #fff;
+        }}
+    
+        .container a:hover {{
+            color: #b9d694;
+            transition: all 0.5s ease;
+        }}
+    
+        .footer-2 {{
+            width: 100%;
+            background: #2d2d2d;
+            color: #fff;
+            padding-top: 12px;
+            padding-bottom: 2px;
+            text-align: center;
+        }}
+        @media only screen and (max-width: 600px) {{
+            .footer-container {{
+                max-height: 260px;
+            }}
+    
+            .col-1 img {{
+                width: 40px;
+            }}
+    
+            .col-1 p {{
+                font-size: 14px;
+            }}
+    
+            .col-3 h3 {{
+                font-size: 18px;
+            }}
+    
+            .col-3 img {{
+                width: 125px;
+            }}
+    
+            .footer-2 p {{
+                font-size: 13px;
+            }}
+        }}
     </style>
-
+    
     <div class="footer-container">
         <div class="container">
             <div class="col-1">
