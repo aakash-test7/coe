@@ -105,6 +105,7 @@ def login_interface():
                 if check_user(username, password):
                     st.session_state['authenticated'] = True
                     st.success("Logged in successfully!")
+                    login_done = True
                     st.title(f"Welcome user")
                     conn = connect_to_db()
                     cursor = conn.cursor()
@@ -130,11 +131,11 @@ def login_interface():
                         st.title(f"Hello {user_info[0]}!")
                     else:
                         st.title("User information not found.")
-                    st.session_state.authenticated = True
                     st.rerun()
 
                 else:
                     st.error("Invalid username or password")
+    return login_done
 
 def register_interface():
     with st.container(border=True):
@@ -194,9 +195,6 @@ def register_interface():
                     st.warning("Passwords do not match. Please try again.")
                 
 def authentication_flow():
-    if st.session_state.authenticated:
-        search_page()
-        return
 
     st.title("Security")
 
@@ -217,6 +215,9 @@ def authentication_flow():
 
     if st.session_state.current_interface == "Login":
         login_interface()
+        if login_done==True:
+            search_page()
+            return
     elif st.session_state.current_interface == "Register":
         register_interface()
 if __name__ == "__main__":
