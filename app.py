@@ -118,7 +118,7 @@ for name, link in external_links.items():
     )
 functions = {
     "Home": pg.home_page,
-    "Search": pg.search_page,
+    "Search": pg.authentication_flow,
     "Meta-Data": pg.meta_data_page,
     "Glossary": pg.glossary_page,
     "Tutorials": pg.tutorials_page,
