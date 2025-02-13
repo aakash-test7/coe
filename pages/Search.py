@@ -77,6 +77,8 @@ def clear_login_inputs():
     st.session_state.login_password = ""
 
 def login_interface():
+    if 'login_done' not in st.session_state:
+        st.session_state['login_done'] = False
     with st.container(border=True):
         col1, col2, col3, col4, col5 = st.columns(5)
         with col3:
@@ -105,7 +107,7 @@ def login_interface():
                 if check_user(username, password):
                     st.session_state['authenticated'] = True
                     st.success("Logged in successfully!")
-                    global login_done = True
+                    st.session_state['login_done'] = True                    
                     st.title(f"Welcome user")
                     conn = connect_to_db()
                     cursor = conn.cursor()
@@ -135,7 +137,7 @@ def login_interface():
 
                 else:
                     st.error("Invalid username or password")
-    return login_done
+    return st.session_state['login_done']
 
 def register_interface():
     with st.container(border=True):
@@ -195,7 +197,11 @@ def register_interface():
                     st.warning("Passwords do not match. Please try again.")
                 
 def authentication_flow():
-
+    def authentication_flow():
+    if st.session_state['login_done']:
+        search_page()
+        return
+        
     st.title("Security")
 
     choice = st.radio("Choose an option:", ["Login", "Register"], index=0 if st.session_state.current_interface == "Login" else 1)
@@ -214,11 +220,8 @@ def authentication_flow():
     st.session_state.current_interface = choice
 
     if st.session_state.current_interface == "Login":               
-        login_done = login_interface()  # Assign the result to login_done
-        if login_done:
-            search_page()
-            return
-                
+        login_interface()
+        
     elif st.session_state.current_interface == "Register":
         register_interface()
 if __name__ == "__main__":
