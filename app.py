@@ -66,14 +66,13 @@ if page != st.session_state.current_page:
 
 # Sidebar navigation
 # st.sidebar.title("Navigation")
-pages2 = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us","Login"]
+#pages2 = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us","Login"]
 
-for page_name in pages2:
-    if st.sidebar.button(page_name, use_container_width=True):
-        st.session_state.current_page = page_name
+#for page_name in pages2:
+    #if st.sidebar.button(page_name, use_container_width=True):
+        #st.session_state.current_page = page_name
 
-# BUTTONS NAVIGATION
-st.sidebar.markdown("---")  # Adds a separator
+#st.sidebar.markdown("---")  # Adds a separator
 st.markdown(
     """
     <style>
