@@ -105,6 +105,21 @@ def connect_to_db():
     mysql_config = st.secrets["mysql"]
     return pymysql.connect(host=mysql_config["host"],user=mysql_config["user"],password=mysql_config["password"],port=mysql_config["port"],database="Chickpea",ssl={"ssl_disabled": True})
 
+def basic_stats():
+    conn3 = connect_to_db()
+    cursor3 = conn3.cursor()
+    cursor3.execute("SELECT COUNT(*) FROM Authentication")
+    total_members = cursor3.fetchone()[0]
+    st.sidebar.subheader(f"Total Members : {total_members}")
+
+    cursor3.execute("SELECT COUNT(*) FROM History")
+    total_searches = cursor3.fetchone()[0]
+    st.sidebar.subheader(f"Total Searches : {total_searches}")
+
+    conn3.commit()
+    conn3.close()
+    return
+
 # Streamlit app
 def security_login():
     st.title("Login and Registration")
