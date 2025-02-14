@@ -40,6 +40,21 @@ def initialize_database():
         mycursor.execute(query2)
         mydb.commit()
 
+        query3 = """
+        CREATE TABLE IF NOT EXISTS History (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            Username VARCHAR(20) NOT NULL,
+            tid VARCHAR(20),
+            mtid VARCHAR(255),
+            locid VARCHAR(20),
+            mlocid VARCHAR(255),
+            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (Username) REFERENCES Authentication(Username)
+        )
+        """
+        mycursor.execute(query3)
+        mydb.commit()
+
         st.success(f"Database '{db}' and tables created successfully.")
         return mydb, mycursor
 
