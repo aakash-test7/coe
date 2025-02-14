@@ -2,8 +2,12 @@ import streamlit as st
 from backend import user_input_menu, multi_user_input_menu, process_locid, process_mlocid
 from pages.footer_all import base_footer
 import time
+from pages.security_login import connect_to_db
+import pandas as pd
 
 def search_page():
+    if st.session_state.get('authenticated', False):
+        username = st.session_state.get('username')
     st.title("Search")
     st.write("**Begin the search by interacting with the backend process.**")
     col1, col2 = st.columns(2)
@@ -36,33 +40,81 @@ def search_page():
                 st.warning("You need to login to perform this action. Redirecting to login page in 5 seconds...")
                 time.sleep(5)
                 st.session_state["redirect_to_login"] = True
-                st.rerun()
+                #login_page()
+                #st.switch_page("pages/Login.py")
+                #navigate_to("Login")
+                #st.session_state.current_page = "Login"
+                #st.session_state["current_page"] = "Login"  # Update the current page to "Login"
+                #st.rerun()
         else:
+            conn = connect_to_db()
+            cursor = conn.cursor()
             if tid:
                 result = user_input_menu(tid)
                 st.write(result)
                 st.toast("Task completed successfully.")
+                query_tid = """
+                INSERT INTO History (Username, tid)
+                VALUES (%s, %s)
+                """
+                cursor.execute(query_tid, (username, tid))
             elif mtid:
                 result = multi_user_input_menu(mtid)
                 st.write(result)
                 st.toast("Task completed successfully.")
+                query_mtid = """
+                INSERT INTO History (Username, mtid)
+                VALUES (%s, %s)
+                """
+                cursor.execute(query_mtid, (username, mtid))
             elif locid:
                 tid = process_locid(locid)
                 result = user_input_menu(tid)
                 st.write(result)
                 st.toast("Task completed successfully.")
+                query_locid = """
+                INSERT INTO History (Username, locid)
+                VALUES (%s, %s)
+                """
+                cursor.execute(query_locid, (username, locid))
             elif mlocid:
                 mtid = process_mlocid(mlocid)
                 result = multi_user_input_menu(mtid)
                 st.write(result)
                 st.toast("Task completed successfully.")
+                query_mlocid = """
+                INSERT INTO History (Username, mlocid)
+                VALUES (%s, %s)
+                """
+                cursor.execute(query_mlocid, (username, mlocid))
             else:
                 st.warning("Need either a Gene ID or NCBI ID to proceed.")
+            conn.commit()
+            conn.close()
     elif tid == "":
         st.warning("Need Gene ID/ NCBI ID to proceed.")
     else:
         st.write("Press the 'Start' button to begin the search.")
         st.write("Follow the instructions or check out tutorials")
+    if st.session_state.get('authenticated', False):
+        if st.button("History", key="History"):
+            conn2= connect_to_db()
+            cursor2= conn2.cursor()
+            st.write(f"History for {username} :-")
+            cursor2.execute("SELECT * FROM History WHERE Username = %s", (username,))
+            rows = cursor2.fetchall()
+            column_names = [desc[0] for desc in cursor2.description]
+            df = pd.DataFrame(rows, columns=column_names)
+            st.dataframe(df)
+            conn2.close()
+    if st.session_state.get('authenticated', False):
+        if st.button("Logout", key="logout_button"):
+            st.session_state["logged_in"] = False
+            st.session_state["authenticated"] = False
+            st.session_state["username"] = None
+            st.success("You have been logged out successfully!")
+            time.sleep(2)
+            st.rerun()
     base_footer()
 
 if __name__ == "__main__":
