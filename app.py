@@ -1,8 +1,9 @@
 import streamlit as st
 st.set_page_config(page_title="ChickpeaOmicsExplorer", layout="wide")
-
 from streamlit_navigation_bar import st_navbar
 import pages as pg
+import time
+from pages.security_login import basic_stats
 
 pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU","Login"]
 logo_path = ("logo.svg")
@@ -43,7 +44,7 @@ styles = {
 st.markdown("""
     <style>
         /* Mobile responsiveness */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .stNavBar-nav {
                 overflow-x: scroll;  /* Enable scrolling on smaller screens */
                 flex-wrap: nowrap;    /* Prevent wrapping of items */
@@ -109,6 +110,18 @@ external_links = {
     "GitHub": "https://github.com",
     "Streamlit": "https://streamlit.io"
 }
+
+if st.session_state.get("authenticated",False): #logout
+    if st.sidebar.button("Site Stats"):
+        basic_stats() #counter
+    if st.sidebar.button("Logout",key="logout_sidebar"):
+        st.session_state["logged_in"] = False
+        st.session_state["authenticated"] = False
+        st.session_state["username"] = None
+        st.success("You have been logged out successfully!")
+        time.sleep(2)
+        st.rerun()
+
 for name, link in external_links.items():
     st.sidebar.markdown(
         f'<a href="{link}" target="_blank" class="sidebar-button">{name}</a>',
