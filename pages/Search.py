@@ -4,6 +4,8 @@ from pages.footer_all import base_footer
 import time
 from pages.security_login import connect_to_db
 import pandas as pd
+from pages.security_login import check_user
+import pages as pg
 
 def search_page():
     if st.session_state.get('authenticated', False):
@@ -40,6 +42,22 @@ def search_page():
                 st.warning("You need to login to perform this action. Redirecting to login page in 5 seconds...")
                 time.sleep(5)
                 st.session_state["redirect_to_login"] = True
+
+                """with st.form("login_form"):
+                    st.subheader("Login")
+                    login_username = st.text_input("Username", key="login_username")
+                    login_password = st.text_input("Password", key="login_password", type="password")
+                    login_button = st.form_submit_button("Login")
+                    
+                    if login_button:
+                        if check_user(login_username, login_password):
+                            st.success("Logged in successfully!")
+                            st.session_state["logged_in"] = True
+                            st.session_state["authenticated"] = True
+                            st.session_state["username"] = login_username
+                            #st.rerun()
+                        else:
+                            st.error("Invalid username or password")"""
                 #login_page()
                 #st.switch_page("pages/Login.py")
                 #navigate_to("Login")
@@ -97,7 +115,7 @@ def search_page():
         st.write("Press the 'Start' button to begin the search.")
         st.write("Follow the instructions or check out tutorials")
     if st.session_state.get('authenticated', False):
-        if st.button("History", key="History"):
+        if st.button("History", key="History_search"):
             conn2= connect_to_db()
             cursor2= conn2.cursor()
             st.write(f"History for {username} :-")
@@ -108,7 +126,7 @@ def search_page():
             st.dataframe(df)
             conn2.close()
     if st.session_state.get('authenticated', False):
-        if st.button("Logout", key="logout_button"):
+        if st.button("Logout", key="logout_search"):
             st.session_state["logged_in"] = False
             st.session_state["authenticated"] = False
             st.session_state["username"] = None
