@@ -58,12 +58,20 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 if "current_page" not in st.session_state:
-    st.session_state.current_page = "Home"
-
+    st.session_state.current_page = "Home"  # Default to Home page on first load
 page = st_navbar(pages, logo_path=logo_path, urls=urls, styles=styles)
 
-if page != st.session_state.current_page:
-    st.session_state.current_page = page
+# Logic for redirecting to login or setting pages
+if st.session_state.get("redirect_to_login", False):
+    st.session_state.current_page = "Login"  # Redirect to Login page
+elif st.session_state.get("redirected_to_login", True) is False:
+    if "first_time" not in st.session_state or st.session_state.first_time:  # Check if it's the first time
+        st.session_state.current_page = "Search"  # First-time visit after redirect should go to Search page
+        st.session_state.first_time = False  # Set first_time to False after first visit
+else:
+    # Set the current page to the selected page from the navbar
+    if page != st.session_state.current_page:
+        st.session_state.current_page = page
 
 # Sidebar navigation
 # st.sidebar.title("Navigation")
@@ -105,6 +113,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 external_links = {
     "Google": "https://www.google.com",
     "GitHub": "https://github.com",
