@@ -42,6 +42,7 @@ def search_page():
                 st.warning("You need to login to perform this action. Redirecting to login page in 5 seconds...")
                 time.sleep(5)
                 st.session_state["redirect_to_login"] = True
+                st.rerun()
 
                 """with st.form("login_form"):
                     st.subheader("Login")
