@@ -228,6 +228,16 @@ def transcriptid_info(tid):
                 with st.expander("Promoter Sequence"):
                     st.code(promote_code, language="text")
 
+                combined_file_content = (
+                    f">{tid}|{tid} Genomic Sequence\n{gene_code}\n\n"
+                    f">{tid}|{tid} Transcript Sequence\n{transcript_code}\n\n"
+                    f">{tid}|{tid} CDS Sequence\n{cds_code}\n\n"
+                    f">{tid}|{tid} Peptide Sequence\n{peptide_code}\n\n"
+                    f">{tid}|{tid} Promoter Sequence\n{promote_code}\n")
+                b64_combined = base64.b64encode(combined_file_content.encode()).decode()  # Convert to base64
+                href_combined = f'<a href="data:text/plain;base64,{b64_combined}" download="{tid}_all_sequences.txt">Download All Sequences as .txt</a>'
+                st.markdown(href_combined, unsafe_allow_html=True)
+
                 header = f">{tid}|{tid}"
                 promote_file = f"{header}\n{promote_code}\n"
                 b64 = base64.b64encode(promote_file.encode()).decode()  # Convert to base64
@@ -436,6 +446,16 @@ def multi_transcriptid_info(mtid):
                             st.code(peptide_code, language="text")
                         with st.expander(f"{tid} Promoter Sequence"):
                             st.code(promote_code, language="text")
+
+                        combined_file_content = (
+                            f">{tid}|{tid} Genomic Sequence\n{gene_code}\n\n"
+                            f">{tid}|{tid} Transcript Sequence\n{transcript_code}\n\n"
+                            f">{tid}|{tid} CDS Sequence\n{cds_code}\n\n"
+                            f">{tid}|{tid} Peptide Sequence\n{peptide_code}\n\n"
+                            f">{tid}|{tid} Promoter Sequence\n{promote_code}\n")
+                        b64_combined = base64.b64encode(combined_file_content.encode()).decode()  # Convert to base64
+                        href_combined = f'<a href="data:text/plain;base64,{b64_combined}" download="{tid}_all_sequences.txt">Download All Sequences as .txt</a>'
+                        st.markdown(href_combined, unsafe_allow_html=True)
 
                         header = f">{tid}|{tid}"
                         promote_file = f"{header}\n{promote_code}\n"
