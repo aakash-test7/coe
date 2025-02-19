@@ -115,10 +115,20 @@ st.markdown(
 )
 
 external_links = {
-    "Google": "https://www.google.com",
-    "GitHub": "https://github.com",
-    "Streamlit": "https://streamlit.io"
-}
+    "NCBI": "https://www.ncbi.nlm.nih.gov/",
+    "Phytozome": "https://phytozome-next.jgi.doe.gov/",
+    "Ensemble Plants": "https://plants.ensembl.org/index.html",
+    "Gramene": "https://www.gramene.org/",
+    "Legume Information System": "https://www.legumeinfo.org/",
+    "Pulse Crop Database": "https://www.pulsedb.org/main",
+    "GrainGenes": "https://wheat.pw.usda.gov/",
+    "TAIR": "https://www.arabidopsis.org/news/jobs"}
+
+external_links2 ={
+    "Rice Database": "https://shigen.nig.ac.jp/rice/oryzabase/locale/change?lang=en",
+    "MaizeGDB": "https://www.maizegdb.org/",
+    "SoyBase": "https://www.soybase.org/",
+    "Cassavabase": "http://nextgencassava.org/"}
 
 if st.session_state.get("authenticated",False): #logout
     if st.sidebar.button("Site Stats"):
@@ -131,11 +141,17 @@ if st.session_state.get("authenticated",False): #logout
         time.sleep(2)
         st.rerun()
 
+st.sidebar.subheader("Plant Database")
 for name, link in external_links.items():
     st.sidebar.markdown(
         f'<a href="{link}" target="_blank" class="sidebar-button">{name}</a>',
-        unsafe_allow_html=True
-    )
+        unsafe_allow_html=True)
+st.sidebar.subheader("Crop-Specific Database")
+for name, link in external_links2.items():
+    st.sidebar.markdown(
+        f'<a href="{link}" target="_blank" class="sidebar-button">{name}</a>',
+        unsafe_allow_html=True)
+    
 functions = {
     "Home": pg.home_page,
     "Search": pg.search_page,
