@@ -144,12 +144,12 @@ if st.session_state.get("authenticated",False): #logout
 st.sidebar.subheader("Plant Database")
 for name, link in external_links.items():
     st.sidebar.markdown(
-        f'<a href="{link}" target="_blank" class="sidebar-button">{name}</a>',
+        f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none;">{name}</a>',
         unsafe_allow_html=True)
 st.sidebar.subheader("Crop-Specific Database")
 for name, link in external_links2.items():
     st.sidebar.markdown(
-        f'<a href="{link}" target="_blank" class="sidebar-button">{name}</a>',
+        f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none;">{name}</a>',
         unsafe_allow_html=True)
     
 functions = {
