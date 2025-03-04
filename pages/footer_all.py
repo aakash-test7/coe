@@ -151,7 +151,7 @@ def base_footer():
             <a href="mailto:kduiet@mdurohtak.ac.in " style="text-decoration: none;">kduiet@mdurohtak.ac.in</a></p>
             </div>
             <div class="col-3">
-                <h3><a href="https://mdu.ac.in/default.aspx" style="text-decoration: none;" target="_blank">⠀⠀MDU</a></h3>
+                <h3><a href="https://mdu.ac.in/default.aspx" style="text-decoration: none;" target="_blank">MDU</a></h3>
                 <img src="{footer_image}" alt="mdu">
             </div>
         </div>
