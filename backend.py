@@ -297,31 +297,32 @@ def transcriptid_info(tid):
             with con:
                 st.subheader("SNP Calling data")
                 st.write("Result data for both Cultivated and Wild varieties will be downloaded in the form of HTML content. Click on the files to view data\n")
-                try:
-                    #con1,con2=st.columns(2)
-                    # Cultivated SNP Download Button
-                    #with con1:
-                    html_Cultivated_page_source = automate_Cultivated_task(tid)
-                    b64_html = base64.b64encode(html_Cultivated_page_source.encode()).decode()  # Convert to base64
-                    html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download Cultivated SNP as .html</a>'
-                    st.markdown(html_href, unsafe_allow_html=True)
-                    iframe_CODE = f'<iframe src="data:text/html;base64,{b64_html}" width="100%" height="500"></iframe>'
-                    with st.expander("View Cultivated SNP", expanded=True):
-                        st_components_html(iframe_CODE, height=500)
+                with st.spinner("SNP data loading", show_time=True):
+                    try:
+                        #con1,con2=st.columns(2)
+                        # Cultivated SNP Download Button
+                        #with con1:
+                        html_Cultivated_page_source = automate_Cultivated_task(tid)
+                        b64_html = base64.b64encode(html_Cultivated_page_source.encode()).decode()  # Convert to base64
+                        html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download Cultivated SNP as .html</a>'
+                        st.markdown(html_href, unsafe_allow_html=True)
+                        iframe_CODE = f'<iframe src="data:text/html;base64,{b64_html}" width="100%" height="500"></iframe>'
+                        with st.expander("View Cultivated SNP", expanded=True):
+                            st_components_html(iframe_CODE, height=500)
 
-                    # Wild SNP Download Button
-                    #with con2:
-                    html_wild_page_source = automate_Wild_task(tid)
-                    b64_html2 = base64.b64encode(html_wild_page_source.encode()).decode()  # Convert to base64
-                    html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download Wild SNP as .html</a>'
-                    st.markdown(html_href2, unsafe_allow_html=True)
-                    iframe_CODE2 = f'<iframe src="data:text/html;base64,{b64_html2}" width="100%" height="500"></iframe>'
-                    with st.expander("View Wild SNP", expanded=True):
-                        st_components_html(iframe_CODE2, height=500)
+                        # Wild SNP Download Button
+                        #with con2:
+                        html_wild_page_source = automate_Wild_task(tid)
+                        b64_html2 = base64.b64encode(html_wild_page_source.encode()).decode()  # Convert to base64
+                        html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download Wild SNP as .html</a>'
+                        st.markdown(html_href2, unsafe_allow_html=True)
+                        iframe_CODE2 = f'<iframe src="data:text/html;base64,{b64_html2}" width="100%" height="500"></iframe>'
+                        with st.expander("View Wild SNP", expanded=True):
+                            st_components_html(iframe_CODE2, height=500)
 
-                except Exception as e:
-                    st.write("Error ! Error ! Error !")
-                    st.write("Unable to fetch data from the server. Please try again later -->","https://cegresources.icrisat.org/cicerseq/?page_id=3605\n")
+                    except Exception as e:
+                        st.write("Error ! Error ! Error !")
+                        st.write("Unable to fetch data from the server. Please try again later -->","https://cegresources.icrisat.org/cicerseq/?page_id=3605\n")
 
             con=st.container(border=True)
             with con:
@@ -349,26 +350,40 @@ def transcriptid_info(tid):
             with con:
                 #Orthologous analysis
                 st.subheader("Orthologs data")
-                ortho_df = filter_orthologs(tid)
-                if not ortho_df.empty:
-                    st.dataframe(ortho_df)
-                    st.write("\n")
-                else:
-                    st.write(f"No match found for Gene id: {tid} in Orthologs data\n")
+                with st.spinner("Loading Orthologs",show_time=True):
+                    ortho_df = filter_orthologs(tid)
+                    if not ortho_df.empty:
+                        st.dataframe(ortho_df)
+                        st.write("\n")
+                    else:
+                        st.write(f"No match found for Gene id: {tid} in Orthologs data\n")
                 st.subheader("Inparalogs data")
-                para_df = filter_paralogs(tid)
-                if not para_df.empty:
-                    st.dataframe(para_df)
-                    st.write("\n")
-                else:
-                    st.write(f"No match found for Gene id: {tid} in Inparalogs data\n")
-                #st.write("For detailed results visit the following link -->","https://orthovenn3.bioinfotoolkits.net/result/88e9a64330ba4d64b78fc5fd9561cd64/orthologous\n")
-            
+                with st.spinner("Loading Paralogs",show_time=True):
+                    para_df = filter_paralogs(tid)
+                    if not para_df.empty:
+                        st.dataframe(para_df)
+                        st.write("\n")
+                    else:
+                        st.write(f"No match found for Gene id: {tid} in Inparalogs data\n")
+                    #st.write("For detailed results visit the following link -->","https://orthovenn3.bioinfotoolkits.net/result/88e9a64330ba4d64b78fc5fd9561cd64/orthologous\n")
         else:
             st.write("Gene ID not found\n")
     else:
         st.write("...Error...\n")
     return
+
+glossary_first={
+    'ST':'ST - Seed Tissue',
+    'FDS':'FDS - Flower Development Stages',
+    'FP':'FP - Flower Parts',
+    'GT':'GT - Green Tissues',
+    'RT':'RT - Root Tissues'}
+glossary_entries = {
+    'ST - Seed Tissue': '- the tissue in seeds that supports the development of the embryo and storage of nutrients.',
+    'FDS - Flower Development Stages': '- the various phases of growth and development that a flower undergoes from bud to bloom.',
+    'FP - Flower Parts': '- the various components that make up a flower, including petals, sepals, stamens, and carpels.',
+    'GT - Green Tissues': '- plant tissues that are photosynthetic, primarily found in leaves and stems.',
+    'RT - Root Tissues': '- the tissues found in the root system of a plant, involved in nutrient absorption and anchorage.'}
 
 def user_input_menu(tid):
         transcriptid_info(tid)
@@ -383,6 +398,10 @@ def user_input_menu(tid):
                 for tissue in tissues:
                     if tissue not in unique_resultant_values:
                             unique_resultant_values.append(tissue)
+                for term in unique_resultant_values:
+                    with st.expander(glossary_first[term],expanded=False):
+                        definition = glossary_entries.get(glossary_first[term], "Definition not available.")
+                        st.write(definition)
                 perf_chart(unique_resultant_values)
         else:
             con=st.container(border=True)
@@ -412,6 +431,10 @@ def multi_user_input_menu(mtid):
                     for tissue in tissues:
                         if tissue not in unique_resultant_values:
                             unique_resultant_values.append(tissue)
+                    for term in unique_resultant_values:
+                        with st.expander(glossary_first[term],expanded=False):
+                            definition = glossary_entries.get(glossary_first[term], "Definition not available.")
+                            st.write(definition)
                 else:
                     st.write(f"{tid} Expression Status : normal  ( no particular tissue/stage favoured ) 0 \n")
             if unique_resultant_values:
@@ -551,32 +574,33 @@ def multi_transcriptid_info(mtid):
                 st.subheader("\nSNP Calling data")
                 st.write("Result data for both Cultivated and Wild varieties will be downloaded in the form of HTML content. Click on the files to view data\n")
                 for tid in mtid_list:
-                    try:
-                        #com1,com2=st.columns(2)
-                        # Cultivated SNP Download Button
-                        #with com1:
-                        #st.markdown(f"#### {tid} Cultivated SNP")
-                        html_Cultivated_page_source = automate_Cultivated_task(tid)
-                        b64_html = base64.b64encode(html_Cultivated_page_source.encode()).decode()  # Convert to base64
-                        html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download {tid} Cultivated SNP as .html</a>'
-                        st.markdown(html_href, unsafe_allow_html=True)
-                        iframe_CODE = f'<iframe src="data:text/html;base64,{b64_html}" width="100%" height="500"></iframe>'
-                        with st.expander(f"View {tid} Cultivated SNP", expanded=True):
-                            st_components_html(iframe_CODE, height=500)
-                        # Wild SNP Download Button
-                        #with com2:
-                        #st.markdown(f"#### {tid} Wild SNP")
-                        html_wild_page_source = automate_Wild_task(tid)
-                        b64_html2 = base64.b64encode(html_wild_page_source.encode()).decode()  # Convert to base64
-                        html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download {tid} Wild SNP as .html</a>'
-                        st.markdown(html_href2, unsafe_allow_html=True)
-                        iframe_CODE2 = f'<iframe src="data:text/html;base64,{b64_html2}" width="100%" height="500"></iframe>'
-                        with st.expander(f"View {tid} Wild SNP", expanded=True):
-                            st_components_html(iframe_CODE2, height=500)
+                    with st.spinner("Loading SNP data",show_time=True):
+                        try:
+                            #com1,com2=st.columns(2)
+                            # Cultivated SNP Download Button
+                            #with com1:
+                            #st.markdown(f"#### {tid} Cultivated SNP")
+                            html_Cultivated_page_source = automate_Cultivated_task(tid)
+                            b64_html = base64.b64encode(html_Cultivated_page_source.encode()).decode()  # Convert to base64
+                            html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download {tid} Cultivated SNP as .html</a>'
+                            st.markdown(html_href, unsafe_allow_html=True)
+                            iframe_CODE = f'<iframe src="data:text/html;base64,{b64_html}" width="100%" height="500"></iframe>'
+                            with st.expander(f"View {tid} Cultivated SNP", expanded=True):
+                                st_components_html(iframe_CODE, height=500)
+                            # Wild SNP Download Button
+                            #with com2:
+                            #st.markdown(f"#### {tid} Wild SNP")
+                            html_wild_page_source = automate_Wild_task(tid)
+                            b64_html2 = base64.b64encode(html_wild_page_source.encode()).decode()  # Convert to base64
+                            html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download {tid} Wild SNP as .html</a>'
+                            st.markdown(html_href2, unsafe_allow_html=True)
+                            iframe_CODE2 = f'<iframe src="data:text/html;base64,{b64_html2}" width="100%" height="500"></iframe>'
+                            with st.expander(f"View {tid} Wild SNP", expanded=True):
+                                st_components_html(iframe_CODE2, height=500)
 
-                    except Exception as e:
-                        st.write(f"Error fetching data for Gene ID: {tid}")
-                        st.write("Unable to fetch data from the server. Please try again later -->","https://cegresources.icrisat.org/cicerseq/?page_id=3605")
+                        except Exception as e:
+                            st.write(f"Error fetching data for Gene ID: {tid}")
+                            st.write("Unable to fetch data from the server. Please try again later -->","https://cegresources.icrisat.org/cicerseq/?page_id=3605")
 
             con=st.container(border=True)
             with con:
@@ -619,22 +643,24 @@ def multi_transcriptid_info(mtid):
             with con:
                 #Orthologous analysis
                 st.subheader("Orthologs data")
-                for tid in mtid_list:
-                    ortho_df = filter_orthologs(tid)
-                    if not ortho_df.empty:
-                        st.write(tid)
-                        st.dataframe(ortho_df)
-                    else:
-                        st.write(f"No match found for Gene id: {tid} in Orthologs data")
+                with st.spinner("Loading Orthologs",show_time=True):
+                    for tid in mtid_list:
+                        ortho_df = filter_orthologs(tid)
+                        if not ortho_df.empty:
+                            st.write(tid)
+                            st.dataframe(ortho_df)
+                        else:
+                            st.write(f"No match found for Gene id: {tid} in Orthologs data")
                 st.subheader("\nInparalogs data")
-                for tid in mtid_list:
-                    para_df = filter_paralogs(tid)
-                    if not para_df.empty:
-                        st.write(tid)
-                        st.dataframe(para_df)
-                    else:
-                        st.write(f"No match found for Gene id: {tid} in Inparalogs data")
-                #st.write("For detailed results visit the following link -->","https://orthovenn3.bioinfotoolkits.net/result/88e9a64330ba4d64b78fc5fd9561cd64/orthologous")
+                with st.spinner("Loading Paralogs",show_time=True):
+                    for tid in mtid_list:
+                        para_df = filter_paralogs(tid)
+                        if not para_df.empty:
+                            st.write(tid)
+                            st.dataframe(para_df)
+                        else:
+                            st.write(f"No match found for Gene id: {tid} in Inparalogs data")
+                    #st.write("For detailed results visit the following link -->","https://orthovenn3.bioinfotoolkits.net/result/88e9a64330ba4d64b78fc5fd9561cd64/orthologous")
 
         else:
             st.write("Gene ID not found\n")
