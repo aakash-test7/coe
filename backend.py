@@ -818,3 +818,6 @@ def tsi_plot():
         category_percentages = category_percentages[['non-TF', 'TF', 'lncRNA']]
         con.bar_chart(category_percentages,y_label='TSI tissue',x_label='Percentage (%)',color=['#FF6347','#FFD700','#0066CC'],height=500,width=700)
     return
+    
+def img_to_base64(image_data):
+    return base64.b64encode(image_data).decode()
