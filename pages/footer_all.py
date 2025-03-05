@@ -1,10 +1,8 @@
 import streamlit as st
 import base64
-from backend import generate_signed_url
+from backend import generate_signed_url, img_to_base64
 import requests
 
-def img_to_base64(image_data):
-    return base64.b64encode(image_data).decode()
 
 def base_footer():
     file_url=generate_signed_url('Logos/mdu.png')
