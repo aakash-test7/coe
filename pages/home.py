@@ -10,7 +10,7 @@ def home_html():
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
         /* General Styles */
-        body {
+        .hp-body {
           font-family: Arial, sans-serif;
           margin: 0;
           padding: 0;
@@ -70,7 +70,7 @@ def home_html():
         }
       </style>
     </head>
-    <body>
+    <body class="hp-body">
       <div class="hp-container">
         <!-- Heading and Subheading -->
         <h1 class="hp-heading">Chickpea</h1>
