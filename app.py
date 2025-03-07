@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(page_title="ChickpeaOmicsExplorer", layout="wide")
+st.set_page_config(page_title="ChickpeaOmicsExplorer", layout="wide",initial_sidebar_state="collapsed")
 from streamlit_navigation_bar import st_navbar
 import pages as pg
 import time
@@ -8,6 +8,7 @@ from pages.security_login import basic_stats
 pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU","Login"]
 logo_path = ("logo.svg")
 urls = {"MDU": "https://mdu.ac.in/default.aspx"}
+options={"use_padding": False, "show_menu":False}
 
 styles = {
     "nav": {
@@ -57,9 +58,10 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
+st.markdown("""<style>.stApp {padding-top: 6rem !important;}</style>""", unsafe_allow_html=True)
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Home"  # Default to Home page on first load
-page = st_navbar(pages, logo_path=logo_path, urls=urls, styles=styles)
+page = st_navbar(pages, logo_path=logo_path, urls=urls, styles=styles, options=options)
 
 # Logic for redirecting to login or setting pages
 if st.session_state.get("redirect_to_login", False):
