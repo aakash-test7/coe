@@ -32,6 +32,7 @@ This project is a Streamlit-based web application named **ChickpeaOmicsExplorer*
   - **`perf_chart(selected_tissues)`**: Displays performance charts for different tissues/stages.
   - **`svm_charts()`**: Visualizes SVM model performance metrics.
   - **`tsi_plot()`**: Plots Tissue Specificity Index (TSI) analysis.
+  - **`img_to_base64()`** COnverts images to Base64 encodes strings.
 
 #### **3. `__init__.py`**
 - **Purpose**: Imports and makes available all page modules (e.g., `About_Us`, `Tutorials`, `Glossary`, etc.) for use in the main application.
@@ -49,13 +50,12 @@ This project is a Streamlit-based web application named **ChickpeaOmicsExplorer*
 #### **6. `Glossary.py`**
 - **Purpose**: Provides a glossary of key terms and definitions related to chickpea omics.
 - **Key Features**:
-  - Allows users to search for specific terms and view their definitions.
+  - Allows users to search for terms used in the application and view their definitions.
 
 #### **7. `footer_all.py`**
 - **Purpose**: Defines the footer for all pages.
 - **Key Features**:
   - Displays contact information and institutional logos.
-  - Uses base64 encoding to display images from GCS.
 
 #### **8. `home_page.py`**
 - **Purpose**: Displays the home page of the application.
@@ -72,7 +72,7 @@ This project is a Streamlit-based web application named **ChickpeaOmicsExplorer*
 #### **10. `metadata.py`**
 - **Purpose**: Displays meta-data and analytics from the backend.
 - **Key Features**:
-  - Visualizes SVM model performance and TSI analysis.
+  - Visualizes performance and analysis plots.
   - Displays heatmaps and functional annotation plots.
 
 #### **11. `search.py`**
@@ -95,6 +95,16 @@ This project is a Streamlit-based web application named **ChickpeaOmicsExplorer*
 - **Key Features**:
   - Displays video tutorials for navigation, single task, multi-task, glossary, and contact features.
   - Uses signed URLs to stream videos from GCS.
+
+#### **14. `home.py`**
+- **Purpose**: Strcutural components for `home_page.py`
+- **Key Features**:
+  - Customization options for headings, text and body.
+
+#### **15. `gallery.py`**
+- **Purpose**: Strcutural components for `home_page.py`
+- **Key Features**:
+  - Customization options for gallery and images.
 
 ---
 
