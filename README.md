@@ -106,7 +106,7 @@ This project is a Streamlit-based web application named **ChickpeaOmicsExplorer*
 - **Key Features**:
   - Customization options for gallery and images.
 
-#### **15. `about_us_html.py`**
+#### **16. `about_us_html.py`**
 - **Purpose**: Strcutural components for `about_us.py`
 - **Key Features**:
   - Customization options for division containers and boxes.
