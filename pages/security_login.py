@@ -119,7 +119,26 @@ def basic_stats():
     conn3.commit()
     conn3.close()
     return
-
+    
+def update_visitor_count():
+    count = 0
+    try:
+        with open("visitor.txt", "r") as file:
+            lines = [line.strip() for line in file.readlines() if line.strip()]
+            if lines:  
+                last_line = lines[-1]
+                parts = last_line.split()
+                if parts:
+                    count = int(parts[0])
+    except (FileNotFoundError, ValueError, IndexError):
+        count = 0
+    count += 1
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if st.session_state.get("first_access",False):
+        with open("visitor.txt", "a") as file:
+            file.write(f"{count} {timestamp}\n")
+    return count
+    
 # Streamlit app
 def security_login():
     st.title("Login and Registration")
