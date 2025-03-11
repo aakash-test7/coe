@@ -55,7 +55,15 @@ def initialize_database():
         """
         mycursor.execute(query3)
         mydb.commit()
-
+        
+        query4 = """
+        CREATE TABLE IF NOT EXISTS Visitor (
+            Visitor_number INT AUTO_INCREMENT PRIMARY KEY,
+            Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+        mycursor.execute(query4)
+        mydb.commit()
         st.success(f"Database '{db}' and tables created successfully.")
         return mydb, mycursor
 
@@ -122,23 +130,17 @@ def basic_stats():
     return
     
 def update_visitor_count():
-    count = 0
-    try:
-        with open("visitor.txt", "r") as file:
-            lines = [line.strip() for line in file.readlines() if line.strip()]
-            if lines:  
-                last_line = lines[-1]
-                parts = last_line.split()
-                if parts:
-                    count = int(parts[0])
-    except (FileNotFoundError, ValueError, IndexError):
-        count = 0
-    count += 1
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    conn4 = connect_to_db()
+    cursor4 = conn4.cursor()
     if st.session_state.get("first_access",False):
-        with open("visitor.txt", "a") as file:
-            file.write(f"{count} {timestamp}\n")
-    return count
+        query = "INSERT INTO Visitor (Timestamp) VALUES (NOW())"
+        cursor4.execute(query)
+        conn4.commit()
+    query = "SELECT COUNT(*) FROM Visitor"
+    cursor4.execute(query)
+    result = cursor4.fetchone()
+    conn4.close()
+    return result[0]
     
 # Streamlit app
 def security_login():
