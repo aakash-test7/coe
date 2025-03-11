@@ -127,13 +127,15 @@ external_links2 ={
 #visitor
 if 'first_access' not in st.session_state:
     st.session_state.first_access = True
+if 'visitor_count' not in st.session_state:
+    st.session_state.visitor_count = 0
 if 'display_count' not in st.session_state:
     st.session_state.display_count = True
 if st.session_state.first_access:
-    visitor_count = update_visitor_count()
+    st.session_state.visitor_count = update_visitor_count()
     st.session_state.first_access = False
 if st.session_state.display_count:
-    st.toast(f"Visitor Count : {visitor_count+1}")
+    st.toast(f"Visitor Count : {st.session_state.visitor_count}")
     st.session_state.display_count = False
 
 if st.session_state.get("authenticated",False): #logout
