@@ -3,7 +3,8 @@ st.set_page_config(page_title="ChickpeaOmicsExplorer", layout="wide",initial_sid
 from streamlit_navigation_bar import st_navbar
 import pages as pg
 import time
-from pages.security_login import basic_stats
+from pages.security_login import basic_stats, update_visitor_count
+from datetime import datetime
 
 pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU","Login"]
 logo_path = ("logo.svg")
@@ -75,14 +76,6 @@ else:
     if page != st.session_state.current_page:
         st.session_state.current_page = page
 
-# Sidebar navigation
-# st.sidebar.title("Navigation")
-#pages2 = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us","Login"]
-
-#for page_name in pages2:
-    #if st.sidebar.button(page_name, use_container_width=True):
-        #st.session_state.current_page = page_name
-
 #st.sidebar.markdown("---")  # Adds a separator
 st.markdown(
     """
@@ -132,9 +125,19 @@ external_links2 ={
     "SoyBase": "https://www.soybase.org/",
     "Cassavabase": "http://nextgencassava.org/"}
 
+#visitor
+if 'first_access' not in st.session_state:
+    st.session_state.first_access = True
+if 'display_count' not in st.session_state:
+    st.session_state.display_count = True
+if st.session_state.first_access:
+    visitor_count = update_visitor_count()
+    st.session_state.first_access = False
+if st.session_state.display_count:
+    st.toast(f"Visitor Count : {visitor_count+1}")
+    st.session_state.display_count = False
+
 if st.session_state.get("authenticated",False): #logout
-    if st.sidebar.button("Site Stats"):
-        basic_stats() #counter
     if st.sidebar.button("Logout",key="logout_sidebar"):
         st.session_state["logged_in"] = False
         st.session_state["authenticated"] = False
@@ -142,7 +145,16 @@ if st.session_state.get("authenticated",False): #logout
         st.success("You have been logged out successfully!")
         time.sleep(2)
         st.rerun()
-
+    if st.sidebar.button("Site Stats"):
+        basic_stats()
+        visitor_count = update_visitor_count()
+        st.sidebar.subheader(f"Total Visitors : {visitor_count}")
+else:
+    if st.sidebar.button("Site Stats", key="non-member"):
+        visitor_count = update_visitor_count()
+        st.sidebar.subheader(f"Total Visitors : {visitor_count}")
+        st.toast(f"Total visitors: {visitor_count}")
+        
 st.sidebar.subheader("Plant Database")
 for name, link in external_links.items():
     st.sidebar.markdown(
