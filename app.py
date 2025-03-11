@@ -4,7 +4,6 @@ from streamlit_navigation_bar import st_navbar
 import pages as pg
 import time
 from pages.security_login import basic_stats, update_visitor_count
-from datetime import datetime
 
 pages = ["Home", "Search", "Meta-Data", "Glossary", "Tutorials", "Citations", "About Us", "MDU","Login"]
 logo_path = ("logo.svg")
