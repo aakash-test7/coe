@@ -234,16 +234,21 @@ def transcriptid_info(tid):
                     f">{tid}|{tid} CDS Sequence\n{cds_code}\n\n"
                     f">{tid}|{tid} Peptide Sequence\n{peptide_code}\n\n"
                     f">{tid}|{tid} Promoter Sequence\n{promote_code}\n")
-                b64_combined = base64.b64encode(combined_file_content.encode()).decode()  # Convert to base64
-                href_combined = f'<a href="data:text/plain;base64,{b64_combined}" download="{tid}_all_sequences.txt">Download All Sequences as .txt</a>'
-                st.markdown(href_combined, unsafe_allow_html=True)
+                #b64_combined = base64.b64encode(combined_file_content.encode()).decode()  # Convert to base64
+                #href_combined = f'<a href="data:text/plain;base64,{b64_combined}" download="{tid}_all_sequences.txt">Download All Sequences as .txt</a>'
+                col1,col2,col3=st.columns([1,2,1])
+                with col2:
+                    st.download_button(label="Download Sequence as .txt", data=combined_file_content, file_name=f"{tid}_sequence.txt", mime="text/plain", on_click="ignore",use_container_width=True)
+                #st.markdown(href_combined, unsafe_allow_html=True)
 
                 header = f">{tid}|{tid}"
                 promote_file = f"{header}\n{promote_code}\n"
-                b64 = base64.b64encode(promote_file.encode()).decode()  # Convert to base64
-                href = f'<a href="data:text/plain;base64,{b64}" download="{tid}_promoter_sequence.txt">Download Promoter Sequence as .txt</a>'
-                st.markdown(href, unsafe_allow_html=True)
-                #st.download_button( label="Download Promoter Sequence as .txt", data=promote_file, file_name=f"{tid}_promoter_sequence.txt", mime="text/plain" )
+                #b64 = base64.b64encode(promote_file.encode()).decode()  # Convert to base64
+                #href = f'<a href="data:text/plain;base64,{b64}" download="{tid}_promoter_sequence.txt">Download Promoter Sequence as .txt</a>'
+                #st.markdown(href, unsafe_allow_html=True)
+                col1,col2,col3=st.columns([1,2,1])
+                with col2:
+                    st.download_button(label=f"Download {tid} Promoter Sequence", data=promote_file, file_name=f"{tid}_promoter_sequence.txt", mime="text/plain", on_click="ignore",use_container_width=True)
                 st.write("Paste the promoter sequence on the following link to get promoter region analysis!")
                 st.write("https://bioinformatics.psb.ugent.be/webtools/plantcare/html/search_CARE_onCluster.html\n")
 
@@ -304,8 +309,11 @@ def transcriptid_info(tid):
                         #with con1:
                         html_Cultivated_page_source = automate_Cultivated_task(tid)
                         b64_html = base64.b64encode(html_Cultivated_page_source.encode()).decode()  # Convert to base64
-                        html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download Cultivated SNP as .html</a>'
-                        st.markdown(html_href, unsafe_allow_html=True)
+                        #html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download Cultivated SNP as .html</a>'
+                        col1,col2,col3=st.columns([1,2,1])
+                        with col2:
+                            st.download_button(label=f"Download {tid} Cultivated SNP", data=html_Cultivated_page_source, file_name=f"{tid}_CultivatedSNP.html", mime="text/plain", on_click="ignore",use_container_width=True)
+                        #st.markdown(html_href, unsafe_allow_html=True)
                         iframe_CODE = f'<iframe src="data:text/html;base64,{b64_html}" width="100%" height="500"></iframe>'
                         with st.expander("View Cultivated SNP", expanded=True):
                             st_components_html(iframe_CODE, height=500)
@@ -314,8 +322,11 @@ def transcriptid_info(tid):
                         #with con2:
                         html_wild_page_source = automate_Wild_task(tid)
                         b64_html2 = base64.b64encode(html_wild_page_source.encode()).decode()  # Convert to base64
-                        html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download Wild SNP as .html</a>'
-                        st.markdown(html_href2, unsafe_allow_html=True)
+                        #html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download Wild SNP as .html</a>'
+                        col1,col2,col3=st.columns([1,2,1])
+                        with col2:
+                            st.download_button(label=f"Download {tid} Wild SNP", data=html_wild_page_source, file_name=f"{tid}_WildSNP.html", mime="text/plain", on_click="ignore",use_container_width=True)
+                        #st.markdown(html_href2, unsafe_allow_html=True)
                         iframe_CODE2 = f'<iframe src="data:text/html;base64,{b64_html2}" width="100%" height="500"></iframe>'
                         with st.expander("View Wild SNP", expanded=True):
                             st_components_html(iframe_CODE2, height=500)
@@ -476,17 +487,23 @@ def multi_transcriptid_info(mtid):
                             f">{tid}|{tid} CDS Sequence\n{cds_code}\n\n"
                             f">{tid}|{tid} Peptide Sequence\n{peptide_code}\n\n"
                             f">{tid}|{tid} Promoter Sequence\n{promote_code}\n")
-                        b64_combined = base64.b64encode(combined_file_content.encode()).decode()  # Convert to base64
-                        href_combined = f'<a href="data:text/plain;base64,{b64_combined}" download="{tid}_all_sequences.txt">Download All Sequences as .txt</a>'
-                        st.markdown(href_combined, unsafe_allow_html=True)
+                        #b64_combined = base64.b64encode(combined_file_content.encode()).decode()  # Convert to base64
+                        #href_combined = f'<a href="data:text/plain;base64,{b64_combined}" download="{tid}_all_sequences.txt">Download All Sequences as .txt</a>'
+                        col1,col2,col3=st.columns([1,2,1])
+                        with col2:
+                            st.download_button(label="Download Sequence as .txt", data=combined_file_content, file_name=f"{tid}_sequence.txt", mime="text/plain", on_click="ignore",use_container_width=True)
+                        #st.markdown(href_combined, unsafe_allow_html=True)
 
                         header = f">{tid}|{tid}"
                         promote_file = f"{header}\n{promote_code}\n"
                         
                         # Convert to base64 for download
-                        b64 = base64.b64encode(promote_file.encode()).decode()  # Convert to base64
-                        href = f'<a href="data:text/plain;base64,{b64}" download="{tid}_promoter_sequence.txt">Download Promoter Sequence as .txt</a>'
-                        st.markdown(href, unsafe_allow_html=True)
+                        #b64 = base64.b64encode(promote_file.encode()).decode()  # Convert to base64
+                        #href = f'<a href="data:text/plain;base64,{b64}" download="{tid}_promoter_sequence.txt">Download Promoter Sequence as .txt</a>'
+                        col1,col2,col3=st.columns([1,2,1])
+                        with col2:
+                            st.download_button(label="Download Promoter Sequence as .txt", data=promote_file, file_name=f"{tid}_promoter_sequence.txt", mime="text/plain", on_click="ignore",use_container_width=True)
+                        #st.markdown(href, unsafe_allow_html=True)
 
                         # Provide link for further analysis
                         st.write(f"Paste the promoter sequence for {tid} on the following link to get promoter region analysis!")
@@ -582,8 +599,11 @@ def multi_transcriptid_info(mtid):
                             #st.markdown(f"#### {tid} Cultivated SNP")
                             html_Cultivated_page_source = automate_Cultivated_task(tid)
                             b64_html = base64.b64encode(html_Cultivated_page_source.encode()).decode()  # Convert to base64
-                            html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download {tid} Cultivated SNP as .html</a>'
-                            st.markdown(html_href, unsafe_allow_html=True)
+                            #html_href = f'<a href="data:text/html;base64,{b64_html}" download="{tid}_Cultivated_SNP.html">Download {tid} Cultivated SNP as .html</a>'
+                            col1,col2,col3=st.columns([1,2,1])
+                            with col2:
+                                st.download_button(label=f"Download {tid} Cultivated SNP", data=html_Cultivated_page_source, file_name=f"{tid}_CultivatedSNP.html", mime="text/plain", on_click="ignore",use_container_width=True)
+                            #st.markdown(html_href, unsafe_allow_html=True)
                             iframe_CODE = f'<iframe src="data:text/html;base64,{b64_html}" width="100%" height="500"></iframe>'
                             with st.expander(f"View {tid} Cultivated SNP", expanded=True):
                                 st_components_html(iframe_CODE, height=500)
@@ -592,8 +612,11 @@ def multi_transcriptid_info(mtid):
                             #st.markdown(f"#### {tid} Wild SNP")
                             html_wild_page_source = automate_Wild_task(tid)
                             b64_html2 = base64.b64encode(html_wild_page_source.encode()).decode()  # Convert to base64
-                            html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download {tid} Wild SNP as .html</a>'
-                            st.markdown(html_href2, unsafe_allow_html=True)
+                            #html_href2 = f'<a href="data:text/html;base64,{b64_html2}" download="{tid}_Wild_SNP.html">Download {tid} Wild SNP as .html</a>'
+                            col1,col2,col3=st.columns([1,2,1])
+                            with col2:
+                                st.download_button(label=f"Download {tid} Wild SNP", data=html_wild_page_source, file_name=f"{tid}_WildSNP.html", mime="text/plain", on_click="ignore",use_container_width=True)
+                            #st.markdown(html_href2, unsafe_allow_html=True)
                             iframe_CODE2 = f'<iframe src="data:text/html;base64,{b64_html2}" width="100%" height="500"></iframe>'
                             with st.expander(f"View {tid} Wild SNP", expanded=True):
                                 st_components_html(iframe_CODE2, height=500)
@@ -818,6 +841,6 @@ def tsi_plot():
         category_percentages = category_percentages[['non-TF', 'TF', 'lncRNA']]
         con.bar_chart(category_percentages,y_label='TSI tissue',x_label='Percentage (%)',color=['#FF6347','#FFD700','#0066CC'],height=500,width=700)
     return
-    
+
 def img_to_base64(image_data):
     return base64.b64encode(image_data).decode()
