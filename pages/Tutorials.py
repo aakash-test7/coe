@@ -14,6 +14,18 @@ def tutorials_page():
     else:
         st.warning("Video not found or unable to generate URL.")
 
+    st.subheader("Registration and Login")
+    video_url = generate_signed_url("Videos/register.mp4")
+    if video_url:
+        st.video(video_url, start_time=0)
+    else:
+        st.warning("Video not found or unable to generate URL.")
+    st.markdown("""
+    1. Navigate to the Login page.
+    2. Register for new users.
+    3. Login using your credentials.
+    4. Unlock Search functionality and additional features.""")
+
     st.subheader("Single Task Tutorial")
     video_url = generate_signed_url("Videos/start_task1.mp4")
     if video_url:
@@ -45,12 +57,7 @@ def tutorials_page():
     else:
         st.warning("Video not found or unable to generate URL.")
 
-    st.subheader("About Tutorial")
-    video_url = generate_signed_url("Videos/contact us.mp4")
-    if video_url:
-        st.video(video_url, start_time=0)
-    else:
-        st.warning("Video not found or unable to generate URL.")
+    
     base_footer()
 
 if __name__ == "__main__":
