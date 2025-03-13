@@ -43,7 +43,7 @@ def base_footer():
             left: 0;
             padding: 0 0;  /* No horizontal padding */
             z-index: 9999; /* Ensures the footer is above other content */
-            max-height: 280px;
+            /*max-height: 280px;*/
         }}
     
         .container {{
