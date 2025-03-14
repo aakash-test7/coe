@@ -125,8 +125,8 @@ def base_footer():
     <div class="footer-container">
         <div class="container">
             <div class="col-1">
-                <p><br><br><br>Stress Physiology & Molecular Biology Lab,<br>Centre for Biotechnology,<br>Maharshi Dayanand University, Rohtak, HR, INDIA<br>E-mail : <a href="mailto:ssgill14@mdurohtak.ac.in" style="text-decoration: none;">ssgill14@mdurohtak.ac.in</a><br>
-            <a href="mailto:kduiet@mdurohtak.ac.in " style="text-decoration: none;">⠀⠀⠀⠀⠀kduiet@mdurohtak.ac.in</a></p>
+                <p><br><br><br>Stress Physiology & Molecular Biology Lab,<br>Centre for Biotechnology,<br>Maharshi Dayanand University, Rohtak, HR, INDIA<br>E-mail : <br><a href="mailto:ssgill14@mdurohtak.ac.in" style="text-decoration: none;">ssgill14@mdurohtak.ac.in</a><br>
+            <a href="mailto:kduiet@mdurohtak.ac.in " style="text-decoration: none;">kduiet@mdurohtak.ac.in</a></p>
             </div>
             <div class="col-3">
                 <h3><a href="https://mdu.ac.in/default.aspx" style="text-decoration: none;" target="_blank">MDU</a></h3>
