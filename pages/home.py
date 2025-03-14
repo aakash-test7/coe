@@ -104,7 +104,7 @@ def home_html():
     </body>
     </html>"""
 
-    html(html_home_page,height=500,scrolling=False)
+    html(html_home_page,height=508,scrolling=False)
     return
 
 home_html()
