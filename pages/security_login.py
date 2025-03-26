@@ -133,9 +133,12 @@ def update_visitor_count():
     conn4 = connect_to_db()
     cursor4 = conn4.cursor()
     if st.session_state.get("first_access",False):
-        query = "INSERT INTO Visitor (Timestamp) VALUES (NOW())"
-        cursor4.execute(query)
-        conn4.commit()
+        if st.session_state.current_page !="Home":
+            query = "INSERT INTO Visitor (Timestamp) VALUES (NOW())"
+            cursor4.execute(query)
+            conn4.commit()
+            st.session_state.first_access = False
+
     query = "SELECT COUNT(*) FROM Visitor"
     cursor4.execute(query)
     result = cursor4.fetchone()
