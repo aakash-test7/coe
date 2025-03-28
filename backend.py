@@ -59,6 +59,7 @@ combined_data = read_excel_from_gcs(bucket_name, "Data/7.xlsx")
 GO_df = read_excel_from_gcs(bucket_name, "Data/10.xlsx")
 cello_df = read_excel_from_gcs(bucket_name, "Data/13.xlsx")
 tsi_df=read_excel_from_gcs(bucket_name, "Data/12.xlsx")
+prop_df=read_excel_from_gcs(bucket_name,"Data/16.xlsx")
 
 def normalize_data(data):
     return data.applymap(lambda x: np.log2(x) if x > 0 else 0)
@@ -251,6 +252,17 @@ def transcriptid_info(tid):
                     st.download_button(label=f"Download {tid} Promoter Sequence", data=promote_file, file_name=f"{tid}_promoter_sequence.txt", mime="text/plain", on_click="ignore",use_container_width=True)
                 st.write("Paste the promoter sequence on the following link to get promoter region analysis!")
                 st.write("https://bioinformatics.psb.ugent.be/webtools/plantcare/html/search_CARE_onCluster.html\n")
+
+                st.subheader("BioChemical Properties")
+                prop_matching_row = prop_df[prop_df['Transcript id'] == tid]
+                if not prop_matching_row.empty:
+                    prop_matching_row = prop_matching_row.head(1)
+                    prop_matching_row = prop_matching_row.drop(columns=["Peptide"])
+                    prop_matching_row = prop_matching_row.drop(columns=["Status"])
+                    st.dataframe(prop_matching_row)
+                    st.write("\n")
+                else:
+                    st.write(f"No match found for Gene id: {tid} in BioChemical Properties data\n")
 
             con=st.container(border=True)
             with con:
@@ -511,6 +523,24 @@ def multi_transcriptid_info(mtid):
                         st.write("\n")
                     else:
                         st.write(f"No matching data found for Gene ID: {tid}\n")
+
+                st.subheader("BioChemical Properties")
+                result=pd.DataFrame()
+                for tid in mtid_list:
+                    temp_result = prop_df[prop_df['Transcript id'] == tid]
+                    if not temp_result.empty:
+                        if 'Peptide' in temp_result.columns:
+                            temp_result = temp_result.drop(columns=["Peptide"])
+                        if 'Status' in temp_result.columns:
+                            temp_result = temp_result.drop(columns=["Status"])
+                        result = pd.concat([result, temp_result], ignore_index=True)
+                    else:
+                        st.write(f"No match found for Gene id: {tid} in BioChemical Properties data\n")
+                if not result.empty:
+                    result = result.drop_duplicates(subset=['Transcript id'])
+                    st.dataframe(result)
+                else:
+                    st.write("No BioChemical Properties data found for any of the provided Gene IDs.\n")
 
             con=st.container(border=True)
             with con:
