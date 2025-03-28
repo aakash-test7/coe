@@ -133,7 +133,7 @@ def about_us_html():
         
         /* Styling for box hover state */
         .about-us .box-container .box:hover {{
-          box-shadow: 0 0 1rem 1rem rgba(0, 0, 0, 0.4); /* Adding a shadow on hover */
+          box-shadow: 1rem 1rem 0.5rem 0.5rem rgba(0, 0, 0, 0.4); /* Adding a shadow on hover */
         }}
         </style>
         
