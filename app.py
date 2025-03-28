@@ -154,7 +154,7 @@ else:
         st.sidebar.subheader(f"Total Visitors : {visitor_count}")
         st.toast(f"Total visitors: {visitor_count}")
         
-st.sidebar.subheader("Important Plant Database")
+st.sidebar.subheader("Important Resources")
 for name, link in external_links.items():
     st.sidebar.markdown(
         f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none;">{name}</a>',
