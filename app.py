@@ -116,9 +116,7 @@ external_links = {
     "Legume Information System": "https://www.legumeinfo.org/",
     "Pulse Crop Database": "https://www.pulsedb.org/main",
     "GrainGenes": "https://wheat.pw.usda.gov/",
-    "TAIR": "https://www.arabidopsis.org/news/jobs"}
-
-external_links2 ={
+    "TAIR": "https://www.arabidopsis.org/news/jobs",
     "Rice Database": "https://shigen.nig.ac.jp/rice/oryzabase/locale/change?lang=en",
     "MaizeGDB": "https://www.maizegdb.org/",
     "SoyBase": "https://www.soybase.org/",
@@ -156,13 +154,8 @@ else:
         st.sidebar.subheader(f"Total Visitors : {visitor_count}")
         st.toast(f"Total visitors: {visitor_count}")
         
-st.sidebar.subheader("Plant Database")
+st.sidebar.subheader("Important Plant Database")
 for name, link in external_links.items():
-    st.sidebar.markdown(
-        f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none;">{name}</a>',
-        unsafe_allow_html=True)
-st.sidebar.subheader("Crop-Specific Database")
-for name, link in external_links2.items():
     st.sidebar.markdown(
         f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none;">{name}</a>',
         unsafe_allow_html=True)
