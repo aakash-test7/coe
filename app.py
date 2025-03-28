@@ -116,11 +116,11 @@ external_links = {
     "Legume Information System": "https://www.legumeinfo.org/",
     "Pulse Crop Database": "https://www.pulsedb.org/main",
     "GrainGenes": "https://wheat.pw.usda.gov/",
-    "TAIR": "https://www.arabidopsis.org/news/jobs",
+    "TAIR": "https://www.arabidopsis.org",
     "Rice Database": "https://shigen.nig.ac.jp/rice/oryzabase/locale/change?lang=en",
     "MaizeGDB": "https://www.maizegdb.org/",
     "SoyBase": "https://www.soybase.org/",
-    "Cassavabase": "http://nextgencassava.org/"}
+    "Cassavabase": "https://www.cassavabase.org"}
 
 #visitor
 if 'first_access' not in st.session_state:
