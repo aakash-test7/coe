@@ -27,9 +27,7 @@ credentials = service_account.Credentials.from_service_account_info(secrets)
 def generate_signed_url(blob_name):
     """Generates a signed URL to access a file in GCS."""
     try:
-        bucket_name = "chickpea-transcriptome"  # Replace with your bucket name
-        client = storage.Client(credentials=credentials)
-        bucket = client.get_bucket(bucket_name)
+        bucket = client.bucket(bucket_name)
         blob = bucket.blob(blob_name)
         if not blob.exists():
             print(f"File {blob_name} does not exist in bucket {bucket_name}")  # Debugging
@@ -44,10 +42,11 @@ def generate_signed_url(blob_name):
 # Initialize the Google Cloud Storage client
 client = storage.Client(credentials=credentials)
 
-bucket_name = os.getenv("GOOGLE_CLOUD_STORAGE_BUCKET", "chickpea-transcriptome")
+bucket_name = os.getenv("GOOGLE_CLOUD_STORAGE_BUCKET", "chickpea-transcriptome2")
 
 def read_excel_from_gcs(bucket_name, blob_name, header=0):
-    bucket = client.get_bucket(bucket_name)
+    """Reads an Excel file from Google Cloud Storage and returns it as a DataFrame."""
+    bucket = client.bucket(bucket_name)
     blob = bucket.blob(blob_name)
     data = blob.download_as_bytes()
     return pd.read_excel(io.BytesIO(data), header=header)
