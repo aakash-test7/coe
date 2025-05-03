@@ -157,7 +157,7 @@ else:
 st.sidebar.subheader("Important Resources")
 for name, link in external_links.items():
     st.sidebar.markdown(
-        f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none;">{name}</a>',
+        f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration=\'none\'; this.style.color=\'black\';" onmouseout="this.style.textDecoration=\'none\'; this.style.color=\'black\';">{name}</a>',
         unsafe_allow_html=True)
     
 functions = {
