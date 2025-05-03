@@ -4,6 +4,7 @@ import base64
 from backend import generate_signed_url,img_to_base64
 import requests
 
+@st.cache_data(show_spinner=False)
 def gallery_html():
     file_url=generate_signed_url('Gallery/1.png')
     response=requests.get(file_url)
