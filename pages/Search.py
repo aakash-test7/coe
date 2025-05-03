@@ -113,7 +113,7 @@ def search_page():
     elif tid == "":
         st.warning("Need Gene ID/ NCBI ID to proceed.")
     else:
-        st.write("Press the 'Start' button to begin the search.")
+        st.write("Press the 'Search' button to begin ... ")
         st.write("Follow the instructions or check out tutorials")
     if st.session_state.get('authenticated', False):
         if st.button("History", key="History_search"):
