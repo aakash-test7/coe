@@ -1,8 +1,9 @@
 import streamlit as st
 from streamlit.components.v1 import html
 
+@st.cache_data
 def home_html():
-    html_home_page="""
+    html_home_page = """
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -99,12 +100,8 @@ def home_html():
           hello ...
         </p>
       </div>
-
-      
     </body>
     </html>"""
-
-    html(html_home_page,height=508,scrolling=False)
-    return
+    html(html_home_page, height=508, scrolling=True)
 
 home_html()
