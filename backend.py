@@ -87,7 +87,7 @@ def get_string_network_link(protein_transcript):
     else:
         return f"Error: {response.status_code}"
 def filter_orthologs(tid):
-    bucket = client.get_bucket(bucket_name)
+    bucket = client.bucket(bucket_name)
     blob_name = "Data/14.txt"
     blob = bucket.blob(blob_name)
     
@@ -107,7 +107,7 @@ def filter_orthologs(tid):
     return ortho_df
 
 def filter_paralogs(tid):
-    bucket = client.get_bucket(bucket_name)
+    bucket = client.bucket(bucket_name)
     blob_name = "Data/15.txt"
     blob = bucket.blob(blob_name)
     filtered_data = set()
