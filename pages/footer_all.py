@@ -47,8 +47,14 @@ def base_footer():
             color: #fff;
             bottom: 0;
             left: 0;
-            padding: 0;
+            padding: 20px 0;
             z-index: 9999;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            flex-wrap: wrap;
         }}
 
         .container {{
