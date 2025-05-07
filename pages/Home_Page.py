@@ -7,29 +7,87 @@ def home_page():
     #main 
     #st.markdown("""<style>.stMain.st-emotion-cache-bm2z3a.eht7o1d1 {    background-color: #ADD8E6;  /* Light blue background */}</style>""", unsafe_allow_html=True)
     st.subheader(" ")
-    st.markdown("""<style>.stVerticalBlock.st-key-maincontainer {background-color: rgba(255,119,75,1);padding: 20px;border-radius: 2rem;} </style>""", unsafe_allow_html=True)
-    con=st.container(border=False, key="maincontainer")
-    with con:
-        st.markdown(
-        '''
-        <div style="font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; padding: 20px; border-radius: 2rem; width: 100%; margin: 0 auto;">
-            <h1 style="text-align: center; font-size: 3.5rem; margin-bottom: 10px; color: #2c3e50;">Chickpea</h1>
-            <h2 style="text-align: center; font-size: 1.2rem; color: #7f8c8d; margin-bottom: 30px;">OMICS EXPLORER</h2>
-            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 20px;">
-                This is a <b style="color: #e74c3c; font-weight: bold;">creative</b> paragraph showcasing some <em style="font-style: italic; text-decoration: underline;">special effects</em>. Here’s an unordered list of ideas:
-            </p>
-            <ul style="list-style-type: square; margin-left: 20px;">
-                <li>Dynamic Images</li>
-                <li>Bold Text</li>
-                <li>Images</li>
-            </ul>
-            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">Hello ...</p>
-            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">
-                Hello ... <b>bold text</b> and <em>italicized text</em>...
-            </p>
-            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">hello ...</p>
-        </div>
-        ''', unsafe_allow_html=True)
+    st.markdown(''
+    '<style>'
+    '    /* General Styles */'
+    '    .hp-body {'
+    '        font-family: Arial, sans-serif;'
+    '        margin: 0;'
+    '        padding: 0;'
+    '        color: #333;'
+    '    }'
+    ''
+    '    .hp-container {'
+    '        max-width: 1000px;'
+    '        background-color: #f4f4f9;'
+    '        margin: 0 auto;'
+    '        padding: 20px;'
+    '        border-radius: 2rem;'
+    '        border: 10px solid #ff774b;'
+    '        box-shadow: 0 4px 8px rgba(0,0,0,0.1);'
+    '    }'
+    ''
+    '    /* Paragraph Styles */'
+    '    .hp-paragraph {'
+    '        font-size: 1rem;'
+    '        line-height: 1.6;'
+    '        margin-bottom: 20px;'
+    '    }'
+    ''
+    '    .hp-paragraph b {'
+    '        color: #e74c3c;'
+    '        font-weight: bold;'
+    '    }'
+    ''
+    '    .hp-paragraph em {'
+    '        font-style: italic;'
+    '        text-decoration: underline;'
+    '    }'
+    ''
+    '    .hp-list {'
+    '        list-style-type: square;'
+    '        margin-left: 20px;'
+    '    }'
+    ''
+    '    /* Additional Paragraphs */'
+    '    .hp-additional-paragraph {'
+    '        font-size: 1rem;'
+    '        line-height: 1.6;'
+    '        margin-bottom: 30px;'
+    '    }'
+    '</style>'
+    ''
+    '<div class="hp-body">'
+    '  <div class="hp-container">'
+    '    <!-- Heading and Subheading -->'
+    '    <p style="text-align: center; font-size: 3.5rem; margin-bottom: 5px; color: #2c3e50; font-weight: bold;">Chickpea</p>'
+    '    <p style="text-align: center; font-size: 1.2rem; color: #7f8c8d; margin-bottom: 10px; font-weight: bold;">OMICS EXPLORER</p>'
+    ''
+    '    <!-- Paragraph with List and Special Effects -->'
+    '    <br><p class="hp-paragraph">'
+    '      This is a <b>creative</b> paragraph showcasing some <em>special effects</em>. Here\'s an unordered list of ideas:'
+    '    </p>'
+    '    <ul class="hp-list">'
+    '      <li>Dynamic Images</li>'
+    '      <li>Bold Text</li>'
+    '      <li>Images</li>'
+    '    </ul>'
+    ''
+    '    <!-- Additional Paragraphs -->'
+    '    <p class="hp-additional-paragraph">'
+    '    Hello ...'
+    '    </p>'
+    '    <p class="hp-additional-paragraph">'
+    '      Hello ... <b>bold text</b> and <em>italicized text</em>...'
+    '    </p>'
+    ''
+    '    <!-- More Text -->'
+    '    <p class="hp-additional-paragraph">'
+    '      hello ...'
+    '    </p>'
+    '  </div>'
+    '</div>'
+    '', unsafe_allow_html=True)
         
     #sub1
     st.markdown("""<style>.stVerticalBlock.st-key-rest1container {background-color: #f4f4f9;padding: 30px;border-radius: 15px;} </style>""", unsafe_allow_html=True)
