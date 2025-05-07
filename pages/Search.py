@@ -115,8 +115,9 @@ def search_page():
     else:
         st.write("Press the 'Search' button to begin ... ")
         st.write("Follow the instructions or check out tutorials")
+    c1,c2,c3,c4=st.columns([2,3,3,2])
     if st.session_state.get('authenticated', False):
-        if st.button("History", key="History_search"):
+        if c2.button("History", key="History_search",use_container_width=True):
             conn2= connect_to_db()
             cursor2= conn2.cursor()
             st.write(f"History for {username} :-")
@@ -126,13 +127,12 @@ def search_page():
             df = pd.DataFrame(rows, columns=column_names)
             st.dataframe(df)
             conn2.close()
-    if st.session_state.get('authenticated', False):
-        if st.button("Logout", key="logout_search"):
+        if c3.button("Logout", key="logout_search",use_container_width=True):
             st.session_state["logged_in"] = False
             st.session_state["authenticated"] = False
             st.session_state["username"] = None
             st.success("You have been logged out successfully!")
-            time.sleep(2)
+            st.toast("Logged out")
             st.rerun()
     base_footer()
 
