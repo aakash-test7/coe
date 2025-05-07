@@ -11,19 +11,26 @@ def home_page():
     con=st.container(border=False, key="maincontainer")
     with con:
         st.markdown(
-        '<div style="font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; padding: 20px; border-radius: 2rem; max-width: 1000px; margin: 0 auto;">'
-        '<h1 style="text-align: center; font-size: 3.5rem; margin-bottom: 10px; color: #2c3e50;">Chickpea</h1>'
-        '<h2 style="text-align: center; font-size: 1.2rem; color: #7f8c8d; margin-bottom: 30px;">OMICS EXPLORER</h2>'
-        '<p style="font-size: 1rem; line-height: 1.6; margin-bottom: 20px;">This is a <b style="color: #e74c3c; font-weight: bold;">creative</b> paragraph showcasing some <em style="font-style: italic; text-decoration: underline;">special effects</em>. Here’s an unordered list of ideas:</p>'
-        '<ul style="list-style-type: square; margin-left: 20px;">'
-        '<li>Dynamic Images</li>'
-        '<li>Bold Text</li>'
-        '<li>Images</li>'
-        '</ul>'
-        '<p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">Hello ...</p>'
-        '<p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">Hello ... <b>bold text</b> and <em>italicized text</em>...</p>'
-        '<p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">hello ...</p>'
-        '</div>', unsafe_allow_html=True)
+        '''
+        <div style="font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; padding: 20px; border-radius: 2rem; width: 100%; margin: 0 auto;">
+            <h1 style="text-align: center; font-size: 3.5rem; margin-bottom: 10px; color: #2c3e50;">Chickpea</h1>
+            <h2 style="text-align: center; font-size: 1.2rem; color: #7f8c8d; margin-bottom: 30px;">OMICS EXPLORER</h2>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 20px;">
+                This is a <b style="color: #e74c3c; font-weight: bold;">creative</b> paragraph showcasing some <em style="font-style: italic; text-decoration: underline;">special effects</em>. Here’s an unordered list of ideas:
+            </p>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li>Dynamic Images</li>
+                <li>Bold Text</li>
+                <li>Images</li>
+            </ul>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">Hello ...</p>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">
+                Hello ... <b>bold text</b> and <em>italicized text</em>...
+            </p>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">hello ...</p>
+        </div>
+        ''', unsafe_allow_html=True)
+        
     #sub1
     st.markdown("""<style>.stVerticalBlock.st-key-rest1container {background-color: #f4f4f9;padding: 30px;border-radius: 15px;} </style>""", unsafe_allow_html=True)
     con=st.container(border=False, key="rest1container")
