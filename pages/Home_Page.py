@@ -7,7 +7,7 @@ def home_page():
     #main 
     #st.markdown("""<style>.stMain.st-emotion-cache-bm2z3a.eht7o1d1 {    background-color: #ADD8E6;  /* Light blue background */}</style>""", unsafe_allow_html=True)
     st.subheader(" ")
-    st.markdown("""<style>.stVerticalBlock.st-key-maincontainer {background-color: rgba(255,119,75,1);padding: 20px;border-radius: 15px;} </style>""", unsafe_allow_html=True)
+    st.markdown("""<style>.stVerticalBlock.st-key-maincontainer {background-color: rgba(255,119,75,1);padding: 20px;border-radius: 2rem;} </style>""", unsafe_allow_html=True)
     con=st.container(border=False, key="maincontainer")
     with con:
         st.markdown(
