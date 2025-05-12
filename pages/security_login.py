@@ -119,15 +119,15 @@ def basic_stats():
     cursor3 = conn3.cursor()
     cursor3.execute("SELECT COUNT(*) FROM Authentication")
     total_members = cursor3.fetchone()[0]
-    st.sidebar.subheader(f"Total Members : {total_members}")
+    #st.sidebar.subheader(f"Total Members : {total_members}")    #change
 
     cursor3.execute("SELECT COUNT(*) FROM History")
     total_searches = cursor3.fetchone()[0]
-    st.sidebar.subheader(f"Total Searches : {total_searches}")
+    #st.sidebar.subheader(f"Total Searches : {total_searches}")  #change
 
     conn3.commit()
     conn3.close()
-    return
+    return total_members, total_searches
     
 def update_visitor_count():
     conn4 = connect_to_db()
