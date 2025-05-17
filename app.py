@@ -137,9 +137,10 @@ if st.session_state.display_count:
     st.toast(f"Visitor Count : {st.session_state.visitor_count}")
     st.session_state.display_count = False
 
-st.sidebar.metric(value=st.session_state.visitor_count,label="Total Visitors",border=True,)
+visitor_placeholder = st.sidebar.empty()
 
 if st.session_state.get("authenticated",False): #logout
+    visitor_placeholder.metric(value=st.session_state.visitor_count, label="Total Visitors", border=True)
     if st.sidebar.button("Logout",key="logout_sidebar"):
         st.session_state["logged_in"] = False
         st.session_state["authenticated"] = False
@@ -151,13 +152,16 @@ if st.session_state.get("authenticated",False): #logout
         st.session_state.member, st.session_state.search=basic_stats()
         st.session_state.visitor_count = update_visitor_count()
         #st.sidebar.subheader(f"Total Visitors : {visitor_count}")  #change
+        visitor_placeholder.metric(value=st.session_state.visitor_count, label="Total Visitors", border=True)
     col1,col2=st.sidebar.columns(2)
     col1.metric(value=st.session_state.member,label="Total Members",delta=None,border=True,)    #change
     col2.metric(value=st.session_state.search,label="Total Searches",delta=None,border=True,)    #change
 
 else:
+    visitor_placeholder.metric(value=st.session_state.visitor_count, label="Total Visitors", border=True)
     if st.sidebar.button("Site Sync", key="non-member"):
         st.session_state.visitor_count = update_visitor_count()
+        visitor_placeholder.metric(value=st.session_state.visitor_count, label="Total Visitors", border=True)
         #st.sidebar.subheader(f"Total Visitors : {visitor_count}")  #change
         st.toast(f"Total visitors: {st.session_state.visitor_count}")
 
