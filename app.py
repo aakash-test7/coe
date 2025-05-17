@@ -53,7 +53,6 @@ st.markdown("""
             }
             .stNavBar-span {
                 font-size: 0.9rem;      /* Slightly reduce font size for mobile */
-                padding: 0.375rem 0.5rem; /* Adjust padding for mobile screens */
             }
         }
     </style>
@@ -129,10 +128,11 @@ if 'visitor_count' not in st.session_state:
     st.session_state.visitor_count = 0
 if 'display_count' not in st.session_state:
     st.session_state.display_count = True
+
 if st.session_state.first_access:
     st.session_state.visitor_count = update_visitor_count()
     st.session_state.member, st.session_state.search=basic_stats() #change
-    
+
 if st.session_state.display_count:
     st.toast(f"Visitor Count : {st.session_state.visitor_count}")
     st.session_state.display_count = False
@@ -149,23 +149,24 @@ if st.session_state.get("authenticated",False): #logout
         st.rerun()
     if st.sidebar.button("Site Sync"):
         st.session_state.member, st.session_state.search=basic_stats()
-        visitor_count = update_visitor_count()
+        st.session_state.visitor_count = update_visitor_count()
         #st.sidebar.subheader(f"Total Visitors : {visitor_count}")  #change
     col1,col2=st.sidebar.columns(2)
     col1.metric(value=st.session_state.member,label="Total Members",delta=None,border=True,)    #change
     col2.metric(value=st.session_state.search,label="Total Searches",delta=None,border=True,)    #change
+
 else:
     if st.sidebar.button("Site Sync", key="non-member"):
-        visitor_count = update_visitor_count()
+        st.session_state.visitor_count = update_visitor_count()
         #st.sidebar.subheader(f"Total Visitors : {visitor_count}")  #change
-        st.toast(f"Total visitors: {visitor_count}")
-        
+        st.toast(f"Total visitors: {st.session_state.visitor_count}")
+
 st.sidebar.subheader("Important Resources")
 for name, link in external_links.items():
     st.sidebar.markdown(
-        f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration=\'none\'; this.style.color=\'black\';" onmouseout="this.style.textDecoration=\'none\'; this.style.color=\'black\';">{name}</a>',
+f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration=\'none\'; this.style.color=\'black\';" onmouseout="this.style.textDecoration=\'none\'; this.style.color=\'black\';">{name}</a>',
         unsafe_allow_html=True)
-    
+
 functions = {
     "Home": pg.home_page,
     "Search": pg.search_page,
