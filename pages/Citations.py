@@ -57,10 +57,10 @@ def citations_page():
     con.write("### Protein-Protein Interactions (PPI):")
     con.write("STRING v12.0 - https://string-db.org/")
     con.write("Szklarczyk D, Kirsch R, Koutrouli M, Nastou K, Mehryary F, Hachilif R, Annika GL, Fang T, Doncheva NT, Pyysalo S, Bork P‡, Jensen LJ‡, von Mering C‡.\
-    The STRING database in 2023: protein–protein association networks and functional enrichment analyses for any sequenced genome of interest.\
+    The STRING database in 2023: protein-protein association networks and functional enrichment analyses for any sequenced genome of interest.\
     Nucleic Acids Res. 2023 Jan 6;51(D1):D638-646.PubMed")
     con.write("Szklarczyk D*, Gable AL*, Nastou KC, Lyon D, Kirsch R, Pyysalo S, Doncheva NT, Legeay M, Fang T, Bork P‡, Jensen LJ‡, von Mering C‡.\
-    The STRING database in 2021: customizable protein–protein networks, and functional characterization of user-uploaded gene/measurement sets.\
+    The STRING database in 2021: customizable protein-protein networks, and functional characterization of user-uploaded gene/measurement sets.\
     Nucleic Acids Res. 2021 Jan 8;49(D1):D605-12.PubMed")
     con.write("Szklarczyk D, Gable AL, Lyon D, Junge A, Wyder S, Huerta-Cepas J, Simonovic M, Doncheva NT, Morris JH, Bork P‡, Jensen LJ‡, von Mering C‡.\
     STRING v11: protein-protein association networks with increased coverage, supporting functional discovery in genome-wide experimental datasets.\
@@ -109,12 +109,12 @@ def citations_page():
     PlantCARE, a plant cis-acting regulatory element database\
     Stephane Rombauts, Patrice Dhais, Marc Van Montagu and Pierre Rouz\
     Nucleic Acids Res. 1999 Jan 1;27(1):295-6. PMID: 9847207; UI: 99063718.")
-    con.write("Gibbs Sampling method to detect over-represented motifs in upstream regions of co-expressed genes. Thijs,G., Marchal,K., Lescot,M., Rombauts,S., De Moor,B., Rouze,P., Moreau,Y. (2002) Journal of Computational Biology, In Press")
-    con.write("A Gibbs Sampling Method to Detect Over-represented Motifs in the Upstream Regions of Co-expressed Genes. Thijs,G., Marchal,K., Lescot,M., Rombauts,S., De Moor,B., Rouze,P., Moreau,Y. (2001) Proceedings Recomb'2001, pages 296-302.")
-    con.write("A higher order background model improves the detection of regulatory elements by Gibbs Sampling Thijs G., Lescot M., Marchal K., Rombauts S., De Moor B., Rouz P., Moreau Y. (2001) Bioinformatics, in press.")
-    con.write("Detection of cis-acting regulatory elements in plants: a Gibbs sampling approach. Thijs,G., Rombauts,S., Lescot,M., Marchal,K., De Moor,B., Moreau,Y. and Rouz,P. Proceedings of the second International conference on bioinformatics of genome regulation and structure (2000), ICG, Novosibirsk, Russia V. 1, pp. 118-126")
-    con.write("Recognition of gene regulatory sequences by bagging of neural networks. Thijs, G., Moreau, Y., Rombauts, S., De Moor, B., and Rouz, P. (1999). Proceedings of the Ninth International Conference on Artificial Neural Networks (ICANN '99), European Neural Network Society (Ed.). London, Institution of Electrical Engineers (IEE), pp. 988-993 [ISBN 0-85296-721-7].\n")
-    con.write("Adaptive Quality-based clustering of gene expression profiles. Frank De Smet, Kathleen Marchal, Janick Mathijs, Gert Thijs, Bart De Moor and Yves Moreau Bioinformatics, in press.")
+    con.write("Gibbs Sampling method to detect over-represented motifs in upstream regions of co-expressed genes. Thijs,G., Marchal,K., Lescot,M., Rombauts,S., De Moor,B., Rouze,P., Moreau,Y. (2002) Journal of Computational Biology, In Press")
+    con.write("A Gibbs Sampling Method to Detect Over-represented Motifs in the Upstream Regions of Co-expressed Genes. Thijs,G., Marchal,K., Lescot,M., Rombauts,S., De Moor,B., Rouze,P., Moreau,Y. (2001) Proceedings Recomb'2001, pages 296-302.")
+    con.write("A higher order background model improves the detection of regulatory elements by Gibbs Sampling Thijs G., Lescot M., Marchal K., Rombauts S., De Moor B., Rouz P., Moreau Y. (2001) Bioinformatics, in press.")
+    con.write("Detection of cis-acting regulatory elements in plants: a Gibbs sampling approach. Thijs,G., Rombauts,S., Lescot,M., Marchal,K., De Moor,B., Moreau,Y. and Rouz,P. Proceedings of the second International conference on bioinformatics of genome regulation and structure (2000), ICG, Novosibirsk, Russia V. 1, pp. 118-126")
+    con.write("Recognition of gene regulatory sequences by bagging of neural networks.Thijs, G., Moreau, Y., Rombauts, S., De Moor, B., and Rouz, P. (1999). Proceedings of the Ninth International Conference on Artificial Neural Networks (ICANN '99), European Neural Network Society (Ed.). London, Institution of Electrical Engineers (IEE), pp. 988-993 [ISBN 0-85296-721-7].\n")
+    con.write("Adaptive Quality-based clustering of gene expression profiles.Frank De Smet, Kathleen Marchal, Janick Mathijs, Gert Thijs, Bart De Moor and Yves Moreau Bioinformatics, in press.")
 
     base_footer()
 
