@@ -100,7 +100,7 @@ def base_footer():
             text-align: center;
         }}
 
-        .col-3 h3 {{
+        .special {{
             color: #fff;
             font-size: 25px;
             margin-top: 10px;
@@ -143,12 +143,12 @@ def base_footer():
                 </p>
             </div>
             <div class="col-3">
-                <h3><a href="https://mdu.ac.in/default.aspx" style="text-decoration: none;" target="_blank">MDU</a></h3>
+                <a href="https://mdu.ac.in/default.aspx" class="special" style="text-decoration: none;" target="_blank">MDU</a>
                 <img src="{footer_image}" alt="mdu">
             </div>
         </div>
         <div class="footer-2">
-            <p style="font-size: 15px">ChickpeaOmicsExplorer</p>
+            <p style="font-size: 15px">CicerOmicsExplorer</p>
         </div>
     </div>
     """
